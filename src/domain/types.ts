@@ -1,6 +1,10 @@
+export type ConnectorId='usaspending-awards'|'austin-permits'|'census-cbp';
+export interface SourceSettings {state:string;startDate:string;endDate:string;keyword:string;year:string;naics:string;limit:number}
+export interface RetrievedRecord {id:string;title:string;organization:string;date:string;dateLabel:string;geography:string;reference:string;fields:Record<string,string|number|null>}
+export interface SourceRun {id:string;sourceId:string;connectorId:ConnectorId;settings:SourceSettings;status:'succeeded'|'failed';startedAt:string;completedAt:string;requestUrl:string;responseHash:string;recordsFetched:number;records:RetrievedRecord[];error?:string;warning?:string;truncated:boolean}
 export type Sector = 'Business' | 'Finance' | 'Construction' | 'Real Estate' | 'Technology' | 'Logistics' | 'Energy';
 export type Tier = 'A' | 'B' | 'C' | 'D';
-export interface Source { id:string; name:string; family:string; url:string; tier:Tier; geography:string; mode:'manual'|'import'; health:'not checked'|'imported'|'failed'; cadence:string; lastImport?:string; limitations:string }
+export interface Source { id:string; name:string; family:string; url:string; tier:Tier; geography:string; mode:'manual'|'import'|'connected'; health:'not checked'|'imported'|'failed'|'retrieved'; cadence:string; lastImport?:string; limitations:string; connectorId?:ConnectorId; settings?:SourceSettings; lastAttempt?:string; lastSuccess?:string; lastError?:string }
 export interface Company { id:string; name:string; normalizedName:string; domain:string; geography:string; sectors:Sector[]; aliases:string[] }
 export interface Evidence { id:string; sourceId:string; reference:string; excerpt:string; tier:Tier; eventDate:string; publishedAt:string; discoveredAt:string; importedAt:string; observed:boolean; hash:string; review:'unreviewed'|'verified'|'contradicted' }
 export interface EOSComponents { trigger:number; need:number; capacity:number; fit:number; access:number }
@@ -13,9 +17,12 @@ export interface Approval {id:string;companyId:string;contactId:string;subject:s
 export interface AuditEvent {id:string;at:string;action:string;entityId:string;detail:string}
 export interface Job {id:string;kind:'report';entityId:string;state:'queued'|'running'|'succeeded'|'failed'|'cancelled';idempotencyKey:string;attempts:number;checkpoint:string;error?:string;createdAt:string;updatedAt:string}
 export interface Artifact {id:string;title:string;kind:'executive-brief';body:string;createdAt:string;review:'Draft'|'Reviewed';workspaceId:string}
-export interface Workspace {schemaVersion:1;id:string;name:string;deviceId:string;revision:number;demo:boolean;createdAt:string;updatedAt:string;sources:Source[];companies:Company[];evidence:Evidence[];signals:Signal[];opportunities:Opportunity[];contacts:Contact[];engagements:Engagement[];tasks:Task[];approvals:Approval[];audit:AuditEvent[];jobs:Job[];artifacts:Artifact[]}
+export interface Workspace {schemaVersion:1;id:string;name:string;deviceId:string;revision:number;demo:boolean;createdAt:string;updatedAt:string;sources:Source[];companies:Company[];evidence:Evidence[];signals:Signal[];opportunities:Opportunity[];contacts:Contact[];engagements:Engagement[];tasks:Task[];approvals:Approval[];audit:AuditEvent[];jobs:Job[];artifacts:Artifact[];sourceRuns:SourceRun[]}
 export interface SignalInput { companyName:string; domain:string; title:string; family:string; trigger:string; eventId:string; eventDate:string; publishedAt:string; geography:string; sectors:Sector[]; sourceId:string; reference:string; excerpt:string; need:string; components:EOSComponents }
 export type Action =
+ | {type:'source.connect';connectorId:ConnectorId;settings:SourceSettings}
+ | {type:'source.configure';sourceId:string;settings:SourceSettings}
+ | {type:'source.retrieved';run:SourceRun}
  | {type:'source.add';input:Omit<Source,'id'|'health'|'lastImport'>}
  | {type:'signal.add';input:SignalInput}
  | {type:'evidence.review';id:string;review:Evidence['review']}
@@ -33,4 +40,4 @@ export type Action =
  | {type:'jobs.run'}
  | {type:'job.cancel';id:string}
  | {type:'artifact.review';id:string};
-export interface AppProps {workspace:Workspace;act:(action:Action)=>Promise<void>;onLock:()=>void;onExport:()=>Promise<void>;onImport:(file:File,password:string)=>Promise<void>;onSwitch:()=>void;storageMode:string;saveStatus:string}
+export interface AppProps {workspace:Workspace;act:(action:Action)=>Promise<void>;onLock:()=>void;onExport:()=>Promise<void>;onImport:(file:File,password:string)=>Promise<void>;onSwitch:()=>void;storageMode:string;saveStatus:string;onPullSource:(sourceId:string)=>Promise<void>}

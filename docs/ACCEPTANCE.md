@@ -50,3 +50,13 @@ Capacity: 16 MiB plaintext vault ceiling; 24 MiB encrypted file import ceiling; 
 ## Cloud setup persistence
 
 Reusable `install_script` and `start_skill` were successfully saved to the cloud environment draft. Saving did not execute or publish them; the frozen installation/build commands were separately executed on this machine. No network rules, secrets or runtime variable requirements were changed. Review and save the draft in environment settings, then publish the environment to retain the prepared snapshot for future tasks. New-task restoration has not been independently validated.
+
+## Version 0.2 source-retrieval correction — acceptance boundary
+
+The user confirmed the original21-row trigger table and then deferred real-estate data for now. All original requirements remain recorded; property acquisition and vacancy data are deferred, while construction/facility and SEC debt/refinancing remain in scope.
+
+Three direct request adapters are implemented with fixed official endpoint construction and narrow opt-in host permissions. Controlled source responses validate the browser pipeline, including parsed facts, encrypted receipt persistence, last-good retention on HTTP503 and changed-filter freshness reset. These are fixtures, not evidence of actual upstream availability, fields or CORS.
+
+Live requests to official Census/USAspending/Austin/Texas/TDLR/DOT hosts failed at the cloud egress proxy with CONNECT403 before reaching the service. No live success or data-quality rating is claimed. Six host additions are saved to the draft; applying them through environment settings is an external prerequisite to finish official source research and validation. No whole-source coverage or19-trigger acceptance is complete. The local-file/extension policy restrictions recorded above remain unchanged.
+
+Final0.2 local results: strict typecheck/production build passed; **49 core/contract tests passed in8 files** and **9 browser workflows passed**, with **2 policy-based file/extension skips**. The two source browser scenarios use intercepted fixture responses. They establish pipeline/error/provenance behavior, not official endpoint/CORS availability. Independent source review's changed-filter regression passed. No official live-source success has been established.

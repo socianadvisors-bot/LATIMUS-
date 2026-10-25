@@ -1,19 +1,19 @@
 # LATIMUS · Cross-Sector Executive Intelligence
 
-A local-first Executive Office for THE CONSULT. **Version 0.1.0 is a working integrated alpha**, not completion of the entire master directive. It runs without a hosted backend, paid service, AI provider, or FORWARD installation.
+A local-first Executive Office for THE CONSULT. **Version 0.2.0 is a working integrated alpha**, not completion of the entire master directive. It runs without a hosted backend, paid service, AI provider, or FORWARD installation.
 
 ## Use the built app
 
 **Portable:** Open `dist/LATIMUS.html` in a current desktop Chrome browser. All code and styles are bundled; there are no CDN or network dependencies. Create a workspace with a passphrase of at least 12 characters. Optionally include explicitly fictional demonstration records. In file mode, **Export workspace before closing**—file mode does not silently write a file or use browser persistence. Keep the HTML, encrypted workspace JSON and your passphrase. To resume, open the HTML and choose **Restore encrypted file**.
 
-**Extension:** Unzip `dist/LATIMUS-extension.zip`. Open Chrome's extension management, enable developer mode, choose **Load unpacked** and select the extracted folder containing `manifest.json`. Click LATIMUS to open a full-tab workspace. Browser mode stores only encrypted ciphertext in IndexedDB. Uninstalling the extension or clearing browser data can remove that vault; export backups. The bundled public manifest key gives the unpacked extension a stable identity. No host, content-script, browsing-history, network or broad tabs permissions are requested.
+**Extension:** Unzip `dist/LATIMUS-extension.zip`. Open Chrome's extension management, enable developer mode, choose **Load unpacked** and select the extracted folder containing `manifest.json`. Click LATIMUS to open a full-tab workspace. Browser mode stores only encrypted ciphertext in IndexedDB. Uninstalling the extension or clearing browser data can remove that vault; export backups. The bundled public manifest key gives the unpacked extension a stable identity. No content-script, browsing-history or broad tabs permissions are requested. Version 0.2 adds opt-in access to exactly api.usaspending.gov, data.austintexas.gov and api.census.gov; each extension source pull requests its own host permission.
 
 Cloud Chromium blocks local-file URLs and unpacked extensions through managed policies. The built HTML's exact bundle, portable adapter and offline behavior are tested through an HTTP test fixture. Direct file and extension acceptance must be completed on an unmanaged target desktop; see `docs/ACCEPTANCE.md`.
 
 ## A useful first workflow
 
 1. Create a new empty workspace or a clearly labeled demonstration workspace.
-2. In **Sources**, register a manual/import source and its evidence tier. Registration does not fetch or verify data.
+2. In **Sources**, configure a public adapter and use **Pull now**, or register a manual/import source. A public-source pull records actual success/failure, query filters, facts, dates and response hash; registration alone never fetches or verifies data. See docs/SOURCE_RETRIEVAL.md for live-verification limits.
 3. In **Intelligence**, capture a company event with dates, source reference, observed excerpt, your need hypothesis and EOS components. JSON batch import is also available.
 4. Review source evidence and mark it reviewed/verified or contradicted. Qualification requires EOS 65+, current reviewed A/B evidence or corroborated C evidence from distinct source hosts, and no contradictions. Tier D alone never qualifies.
 5. Qualify the signal. In **Opportunities**, progress it through discovery/proposal stages. Record actual outcome evidence when marking won or lost.
@@ -50,8 +50,10 @@ The browser suite uses `/usr/bin/chromium` in this cloud machine. Build before u
 
 ## Current limits
 
-No live source retrieval, model inference, mail/calendar/business connector, external writes, automated POC enrichment, invoice issuance, or general background scheduler is connected. AI is manual task-packet handoff. Jobs execute only while the workspace is open and unlocked; closed browsers cannot monitor. Source freshness is 90 days in the current versioned policy. Operator-reviewed evidence is an assertion by the local user, not independent source authentication.
+Three fixed public-source retrieval adapters are implemented with fixture/browser-pipeline tests; no official endpoint has yet passed a live test from this cloud runtime because its proxy denies the official hosts. Model inference, mail/calendar/business connectors, external writes, automated POC enrichment, invoice issuance and a general background scheduler are not connected. AI is manual task-packet handoff. Jobs execute only while the workspace is open and unlocked; closed browsers cannot monitor. Source freshness is 90 days in the current versioned policy. Operator-reviewed evidence is an assertion by the local user, not independent source authentication.
 
 The 15-module registry preserves scope and states partial/planned status. Full market rankings, commercial document lifecycle, general durable dependencies/outbox, owner/family records, corporate workflows, complete sector operations and learning analytics remain in the roadmap. The original 152 role lines and 67 services are preserved without claiming individual implementation.
 
 See `docs/SECURITY.md` for security boundaries and recovery; `docs/ACCEPTANCE.md` for exact verification and platform gaps.
+
+Current owner scope: defer real-estate deed/CAD/ownership/acquisition and vacancy/listing data for now. Construction/facility permits and SEC debt/refinancing remain in scope. All original trigger requirements are preserved in docs/TRIGGER_SOURCE_ACCEPTANCE.md; deferred items are not deleted from the product specification.

@@ -1,0 +1,23 @@
+import {it,expect,vi} from 'vitest';
+import {applyAction,emptyWorkspace} from '../src/domain/workspace';
+import {defaultSourceSettings} from '../src/domain/connectors';
+import {retrieveSource} from '../src/platform/sources';
+it('makes changed query filters unverified while retaining the prior successful snapshot and its original provenance',async()=>{
+ let w=await applyAction(emptyWorkspace('Filter review'),{type:'source.connect',connectorId:'usaspending-awards',settings:defaultSourceSettings()});
+ const source=w.sources[0];
+ const response=new Response(JSON.stringify({results:[{'Award ID':'FIXTURE-TX','Recipient Name':'Fixture Texas Awardee','Base Obligation Date':'2026-10-01',generated_internal_id:'CONT_AWD_FIXTURE_TX'}]}),{headers:{'content-type':'application/json'}});
+ const good=await retrieveSource(source,vi.fn().mockResolvedValue(response) as any);
+ expect(good.status).toBe('succeeded');
+ w=await applyAction(w,{type:'source.retrieved',run:good});
+ expect(w.sources[0].health).toBe('retrieved');
+ const prior=structuredClone(w.sourceRuns[0]);
+ w=await applyAction(w,{type:'source.configure',sourceId:source.id,settings:{...defaultSourceSettings(),state:'CA'}});
+ expect(w.sources[0].health).toBe('not checked');
+ expect(w.sources[0].settings?.state).toBe('CA');
+ expect(w.sources[0].geography).toBe('CA');
+ expect(w.sourceRuns).toHaveLength(1);
+ expect(w.sourceRuns[0]).toEqual(prior);
+ expect(w.sourceRuns[0].settings.state).toBe('TX');
+ expect(w.sourceRuns[0].records[0].organization).toBe('Fixture Texas Awardee');
+ await expect(applyAction(w,{type:'source.retrieved',run:{...good,id:'new-receipt'}})).rejects.toThrow('settings changed');
+});

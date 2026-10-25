@@ -13,3 +13,7 @@ The product directive remains the full destination; 0.1.0 is an integrated alpha
 9. Complete source expansion, outcomes/source-yield learning and cross-platform release acceptance. Reference positions never become 360 persistent agents.
 
 Use the existing checkout; each Codex cloud task is already isolated. Preserve user work and current data. Read `AGENTS.md`, phase plans, `REQUIREMENTS_TRACEABILITY.md`, the latest build log, and relevant source sections before continuing.
+
+## Current source-ingestion correction
+
+The user clarified that the original21-trigger source table is mandatory, with real-estate data excluded **for now**. Do not call the product's source coverage complete because three adapters or catalog rows exist. Review docs/TRIGGER_SOURCE_ACCEPTANCE.md before implementing further source work. Deed/CAD/ownership/acquisition/vacancy/listing feeds are deferred; SEC debt/refinancing and construction/facility/energy permits remain active. Finish official endpoint verification after the saved egress domains are applied, then implement the remaining active adapters and source-backed trigger detection. Credentials and CORS requirements must be checked for each source rather than guessed.

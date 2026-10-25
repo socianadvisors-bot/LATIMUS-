@@ -1,6 +1,6 @@
 # LATIMUS build state
 
-Updated October 24, 2026 (America/Chicago). Version: **0.1.0 integrated alpha**.
+Updated October 24, 2026 (America/Chicago). Version: **0.2.0 integrated alpha (source acceptance unfinished)**.
 
 This is a greenfield implementation in the selected `socianadvisors-bot/LATIMUS-` checkout. The uploaded pack supplies the controlling product specifications and original coverage baseline. LATIMUS remains independent of THE CONSULT FORWARD. No deployment or push has been performed.
 
@@ -47,3 +47,11 @@ The implementation follows a dependency-spanning vertical slice to prove a usefu
 | 11 | Unit protections and review-driven corrections | Full browser/security/recovery/workload/cross-platform acceptance and release gate |
 
 No mandatory cloud server, public deployment, paid service, provider credential, or FORWARD runtime is required for the implemented local slice.
+
+## Version 0.2 — source-retrieval correction
+
+The user clarified that the original21 trigger/source rows are required. The previous manual/import-only delivery did not meet that requirement. The owner subsequently authorized deferring **real-estate data for now**: deed/CAD/ownership/acquisition and vacancy/listing feeds, including private property deed-of-trust sourcing. Construction/facility permits and SEC debt/refinancing remain active requirements. Preserve all21 original rows and mark the two real-estate-specific trigger rows deferred, rather than deleting them.
+
+Three direct public-source adapter implementations now exist (USAspending prime contracts, Austin issued permits, Census CBP). They have bounded query configuration, fixed endpoint construction, validation, response hashes, encrypted snapshots, attempt/success/error state and explicit stale/changed-filter behavior. Narrow optional extension-host grants and matching portable CSP connect origins replace the former no-network configuration. Older v1 vaults load with an additive empty sourceRuns collection. Locked/replaced workspaces reject/abort in-flight result commits.
+
+These adapters are **coded and fixture-tested**, not live-accepted. Cloud egress blocks official hosts with CONNECT403 before the services are reached; source metadata, current availability and CORS remain unverified. Saving six draft network domains did not apply runtime access. Most active sources and all full automatic trigger-detection acceptance remain unfinished. Census is an aggregate baseline, not a company trigger. See docs/SOURCE_RETRIEVAL.md and docs/TRIGGER_SOURCE_ACCEPTANCE.md; a catalog row does not count as implemented coverage.

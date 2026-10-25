@@ -70,3 +70,9 @@ The original source appendix and exact names are preserved in `docs/original-cov
 ## Source-specific authority
 
 Manual/imported sample sources are opt-in fictional fixtures, labeled in the UI and generated briefs. No official dataset, real company event, POC verification, fresh retrieval, paid provider, live send or professional credential is established by these records. Complete separation and original scope remain requirements even when absent from the current UI.
+
+## Source-scope clarification and 0.2 evidence
+
+The owner's explicit21-row source list is the controlling acceptance checklist for sourcing. Real-estate data is temporarily deferred by the owner; two property-specific triggers are deferred and19 remain active, with the private deed-of-trust component of refinancing also deferred. SEC refinancing remains required. See docs/TRIGGER_SOURCE_ACCEPTANCE.md for row-by-row status.
+
+`src/domain/connectors.ts`, `src/platform/sources.ts`, SourcesPanel and source-run actions implement three bounded direct request pipelines. Tests cover fixed URL/filter construction, raw field semantics, zero/error/schema/size handling, encrypted receipts, stale-query rejection and additive old-vault compatibility. Browser fixtures test actual fetch→parse→persist→render, not official live endpoints. Full source-backed trigger detection and remaining source adapters are **not implemented**. No row is upgraded to live-tested or fully covered from these pipeline fixtures.

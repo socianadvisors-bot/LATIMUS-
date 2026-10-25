@@ -41,3 +41,13 @@ Next executable task: finish actual built-distribution and browser acceptance; a
 - Screenshot inspected; no runtime page errors in recorded flows. Distribution contracts verify CSP script hash and restrictive MV3 manifest.
 - Reusable install_script and start_skill saved successfully in configuration draft, requires_publish=true. No secrets/network changes. This saves configuration only; no publication or fresh-task restoration occurred.
 - Further product scope and desktop acceptance remain open; this is a working alpha, not full directive completion.
+
+## Source retrieval correction — version0.2
+
+Owner clarified the21-trigger source table is mandatory, then allowed excluding real-estate data for now. Preserved all21 rows with19 active and2 deferred; construction/facility permits and SEC refinancing remain active. This does not complete the remaining source requirements.
+
+Implemented three fixed public request adapters (USAspending, Austin permits, Census CBP), query settings, narrow optional extension host grants/CSP, bounded/timeout/credential-free transport, metadata/row validation, encrypted source receipts, source-result UI and failure/changed-filter provenance. Saved the latest successful snapshot through failures and distinguished zero results. No automatic full trigger detector or false contact/source verification was introduced.
+
+Final observed commands: `npm run build` passed strict typecheck and generated both distributions; `npm test` **49 passed in8 suites**; `npm run test:browser` **9 passed,2 managed-policy skips**. Two source browser scenarios use explicitly intercepted controlled responses, not official live data. Original seven local workflow tests still pass. Initial new-source browser failures were selectors resolving hidden source-field details; selectors now target the actual visible record content. Changed-filter regression passes both domain and browser tests.
+
+Actual official-source attempts were denied by the egress proxy with CONNECT403 before reaching upstream services. Six narrowly scoped domain additions saved to environment draft; runtime policy update is still external work. No API/CORS/live-schema success is claimed. The19 active trigger families and broader required adapters/detectors remain incomplete pending official research, implementation and acceptance. Review/user action to apply the saved network changes is necessary to resume live endpoint work.

@@ -41,3 +41,10 @@ Build one bounded functional path across foundation, intelligence, commercial pr
 ## D09 — No phantom connections or roles
 
 Only local tools and assisted manual handoff operate in this version. No live source, AI inference, Google/business connector, background monitoring or external write is claimed. The complete original 152-role/67-service ledger is retained; rows are not implementation and reference positions are not active agents. Fictional sample records are opt-in and explicitly labeled.
+
+## Source correction and owner deferral (0.2)
+
+- Restore the original21-row sourcing table as the acceptance boundary. Real estate is temporarily deferred at the owner's request; company/finance, construction, awards, workforce, fleet, energy and risk sourcing remain required. No reliable direct free owner-exit signal is promised.
+- Add three fixed public request adapters with opt-in per-host extension permissions and exactly matching CSP origins. No generic URL fetch bridge, hidden proxy, paid infrastructure or injected authentication is introduced.
+- Treat retrieved records as unreviewed staged facts. Do not turn a permit contractor into an owner, a funding notice into received funds, job-post counts into proven net hiring, or a fleet census snapshot into fleet growth. Do not invent event/publication dates or opportunity scores from a fetch.
+- Retain current query parameters on each receipt; historical success is not freshness for new filters. Failed/zero/never-attempted outcomes remain distinct. Live acceptance requires actual official responses and distribution-level CORS/permission evidence.

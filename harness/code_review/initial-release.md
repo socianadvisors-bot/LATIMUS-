@@ -26,3 +26,13 @@ Scope: read-only review of `workspace.ts`, `validation.ts`, vault crypto/storage
 ## Acceptance limits
 
 Unit evidence covers encryption, schema links, tampered approval content, suppression, unauthorized action rejection, report restart behavior, malformed imports, EOS/evidence gates and arithmetic. It does not establish hardware/OS compatibility, malicious-extension resistance, compromised-device protection, live connectivity, full durable-engine correctness, or full product completion. See `docs/ACCEPTANCE.md` and the latest build log for actual browser outcomes.
+
+## Public-source correction review (0.2)
+
+Read-only specialist review inspected fixed endpoint builders, metadata parsing, source-run schema, request transport, generation/filter checks, CAS persistence and old-vault compatibility. No arbitrary fetch or credential transport was introduced.
+
+- Socrata metadata may contain hidden colon-prefixed fields: now filtered before validating public query columns.
+- Census year/NAICS mapping: restricted to the2023+ NAICS2022 adapter contract pending official live metadata checks.
+- Medium: changed query filters previously retained a misleading green current-query badge. Configure now marks unverified; UI compares receipt filters, labels historical snapshots and preserves provenance. Browser regression passed with TX→CA filter change.
+- Low: oversized Content-Length rejection left an unread response body. Transport now cancels it and aborts the controller in finally.
+- Remaining blocker: official endpoint/CORS/extension runtime verification cannot be replaced by fixtures. Cloud proxy denial remains explicit; full19 active trigger rows are not complete.
