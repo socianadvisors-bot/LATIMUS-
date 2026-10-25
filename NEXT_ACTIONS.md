@@ -17,3 +17,7 @@ Use the existing checkout; each Codex cloud task is already isolated. Preserve u
 ## Current source-ingestion correction
 
 The user clarified that the original21-trigger source table is mandatory, with real-estate data excluded **for now**. Do not call the product's source coverage complete because three adapters or catalog rows exist. Review docs/TRIGGER_SOURCE_ACCEPTANCE.md before implementing further source work. Deed/CAD/ownership/acquisition/vacancy/listing feeds are deferred; SEC debt/refinancing and construction/facility/energy permits remain active. Finish official endpoint verification after the saved egress domains are applied, then implement the remaining active adapters and source-backed trigger detection. Credentials and CORS requirements must be checked for each source rather than guessed.
+
+### Network blocker cleared; next source actions
+
+Do not ask the owner to resave the six hosts unnecessarily: native official API retrieval now works. Four adapters passed real API checks; Census needs a genuine free key via secure settings/UI. Cloud Chromium's certificate trust issue remains separate and must be fixed without disabling verification before claiming browser-live acceptance. Continue remaining19 active source/trigger coverage and qualified normalization; raw retrieval and fleet observations do not close the entire checklist.

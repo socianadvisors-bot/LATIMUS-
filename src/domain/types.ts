@@ -1,4 +1,4 @@
-export type ConnectorId='usaspending-awards'|'austin-permits'|'census-cbp';
+export type ConnectorId='usaspending-awards'|'austin-permits'|'census-cbp'|'tdlr-projects'|'fmcsa-census';
 export interface SourceSettings {state:string;startDate:string;endDate:string;keyword:string;year:string;naics:string;limit:number}
 export interface RetrievedRecord {id:string;title:string;organization:string;date:string;dateLabel:string;geography:string;reference:string;fields:Record<string,string|number|null>}
 export interface SourceRun {id:string;sourceId:string;connectorId:ConnectorId;settings:SourceSettings;status:'succeeded'|'failed';startedAt:string;completedAt:string;requestUrl:string;responseHash:string;recordsFetched:number;records:RetrievedRecord[];error?:string;warning?:string;truncated:boolean}
@@ -40,4 +40,4 @@ export type Action =
  | {type:'jobs.run'}
  | {type:'job.cancel';id:string}
  | {type:'artifact.review';id:string};
-export interface AppProps {workspace:Workspace;act:(action:Action)=>Promise<void>;onLock:()=>void;onExport:()=>Promise<void>;onImport:(file:File,password:string)=>Promise<void>;onSwitch:()=>void;storageMode:string;saveStatus:string;onPullSource:(sourceId:string)=>Promise<void>}
+export interface AppProps {workspace:Workspace;act:(action:Action)=>Promise<void>;onLock:()=>void;onExport:()=>Promise<void>;onImport:(file:File,password:string)=>Promise<void>;onSwitch:()=>void;storageMode:string;saveStatus:string;onPullSource:(sourceId:string,credentials?:{censusApiKey?:string})=>Promise<void>}

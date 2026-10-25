@@ -7,10 +7,10 @@ export const TRIGGER_COVERAGE:TriggerCoverage[] = [
     "methods": "TDLR TABS + municipal permit/application feeds",
     "quality": "Excellent",
     "adapterIds": [
-      "austin-permits"
+      "austin-permits", "tdlr-projects"
     ],
     "status": "Partial retrieval; detection not implemented",
-    "gap": "Austin raw retrieval is coded/fixture-tested only. TDLR, other municipalities, project normalization, permit classification and live evidence remain unfinished."
+    "gap": "Austin permits and TDLR public projects returned real records through the live API runner. Browser distribution acceptance, other municipalities, project/company normalization and full trigger qualification remain unfinished."
   },
   {
     "id": "T02",
@@ -30,7 +30,7 @@ export const TRIGGER_COVERAGE:TriggerCoverage[] = [
       "usaspending-awards"
     ],
     "status": "Partial retrieval; detection not implemented",
-    "gap": "Federal raw contract retrieval is coded/fixture-tested only. New-award detection, full award coverage, recipient normalization and live evidence remain unfinished."
+    "gap": "Official federal retrieval passed live API checks with new_awards_only date filtering. Texas state awards, recipient/need qualification and end-to-end browser acceptance remain unfinished."
   },
   {
     "id": "T04",
@@ -66,7 +66,7 @@ export const TRIGGER_COVERAGE:TriggerCoverage[] = [
     "quality": "Excellent",
     "adapterIds": [],
     "status": "Not implemented",
-    "gap": "Company-specific facility event detection and multi-source project normalization remain absent; raw permit retrieval alone does not complete this trigger."
+    "gap": "TDLR and Austin live APIs provide project records; company-specific new-facility event detection and multi-source normalization remain unfinished. A registration is not proof of opening or expansion."
   },
   {
     "id": "T08",
@@ -147,7 +147,7 @@ export const TRIGGER_COVERAGE:TriggerCoverage[] = [
     "quality": "Very good",
     "adapterIds": [],
     "status": "Not implemented",
-    "gap": "Official dataset schema/access, retained prior baseline, comparable power-unit/fleet changes and live evidence required."
+    "gap": "FMCSA live census API and retained baseline retrieval work; reported power-unit comparison is fixture-tested. A first snapshot is not expansion; real change validation and full qualification remain unfinished."
   },
   {
     "id": "T17",

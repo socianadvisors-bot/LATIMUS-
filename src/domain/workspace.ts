@@ -36,7 +36,7 @@ export async function applyAction(workspace:Workspace,action:Action):Promise<Wor
       const run=sourceRunSchema.parse(action.run);const s=must(w.sources.find(s=>s.id===run.sourceId),'Source not found.');if(s.connectorId!==run.connectorId)throw new Error('Source adapter mismatch.');if(JSON.stringify(s.settings)!==JSON.stringify(run.settings))throw new Error('Source settings changed before this result could be saved.');if(w.sourceRuns.some(r=>r.id===run.id))throw new Error('This source receipt was already recorded.');
       s.lastAttempt=run.completedAt;s.health=run.status==='succeeded'?'retrieved':'failed';if(run.status==='succeeded'){s.lastSuccess=run.completedAt;delete s.lastError;}else s.lastError=run.error||'Source failed';
       // Retain the latest good snapshot through failures; bounded history is not represented as a full archive.
-      w.sourceRuns=w.sourceRuns.filter(r=>r.sourceId!==s.id||(run.status==='failed'&&r.status==='succeeded')).concat(run);entityId=s.id;break;
+      const otherRuns=w.sourceRuns.filter(r=>r.sourceId!==s.id);const previousGood=w.sourceRuns.filter(r=>r.sourceId===s.id&&r.status==='succeeded').slice(run.status==='failed'?-2:-1);w.sourceRuns=[...otherRuns,...previousGood,run];entityId=s.id;break;
     }
     case 'source.add':{
       const s=sourceSchema.parse({...action.input,id:crypto.randomUUID(),health:'not checked'});w.sources.push(s);entityId=s.id;break;

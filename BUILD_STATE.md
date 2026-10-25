@@ -1,6 +1,6 @@
 # LATIMUS build state
 
-Updated October 24, 2026 (America/Chicago). Version: **0.2.0 integrated alpha (source acceptance unfinished)**.
+Updated October 24, 2026 (America/Chicago). Version: **0.3.0 integrated alpha (source acceptance unfinished)**.
 
 This is a greenfield implementation in the selected `socianadvisors-bot/LATIMUS-` checkout. The uploaded pack supplies the controlling product specifications and original coverage baseline. LATIMUS remains independent of THE CONSULT FORWARD. No deployment or push has been performed.
 
@@ -55,3 +55,9 @@ The user clarified that the original21 trigger/source rows are required. The pre
 Three direct public-source adapter implementations now exist (USAspending prime contracts, Austin issued permits, Census CBP). They have bounded query configuration, fixed endpoint construction, validation, response hashes, encrypted snapshots, attempt/success/error state and explicit stale/changed-filter behavior. Narrow optional extension-host grants and matching portable CSP connect origins replace the former no-network configuration. Older v1 vaults load with an additive empty sourceRuns collection. Locked/replaced workspaces reject/abort in-flight result commits.
 
 These adapters are **coded and fixture-tested**, not live-accepted. Cloud egress blocks official hosts with CONNECT403 before the services are reached; source metadata, current availability and CORS remain unverified. Saving six draft network domains did not apply runtime access. Most active sources and all full automatic trigger-detection acceptance remain unfinished. Census is an aggregate baseline, not a company trigger. See docs/SOURCE_RETRIEVAL.md and docs/TRIGGER_SOURCE_ACCEPTANCE.md; a catalog row does not count as implemented coverage.
+
+## Version0.3 — verified live API progress
+
+The earlier cloud egress blocker is cleared. The native application adapter runner passed real HTTPS retrieval for USAspending(new_awards_only), Austin permits, TDLR projects and FMCSA census,2 records each. Census metadata is live-verified, reveals NAICS2017 for2023, and requires a free real key for data queries. Five adapters now exist; a transient Census-key UI and redaction prevent key persistence. FMCSA has minimal public fields and two-snapshot observation comparison without claiming verified expansion/authority.
+
+Cloud Chromium HTTPS remains blocked by ERR_CERT_AUTHORITY_INVALID despite importing existing platform CAs into its newer NSS location; TLS checks were never disabled. API-level verification is distinct from browser distribution acceptance. Most of the19 active source-trigger requirements remain incomplete. See docs/SOURCE_RETRIEVAL.md for current state; the earlier CONNECT403 checkpoint above is historical.

@@ -48,3 +48,11 @@ Only local tools and assisted manual handoff operate in this version. No live so
 - Add three fixed public request adapters with opt-in per-host extension permissions and exactly matching CSP origins. No generic URL fetch bridge, hidden proxy, paid infrastructure or injected authentication is introduced.
 - Treat retrieved records as unreviewed staged facts. Do not turn a permit contractor into an owner, a funding notice into received funds, job-post counts into proven net hiring, or a fleet census snapshot into fleet growth. Do not invent event/publication dates or opportunity scores from a fetch.
 - Retain current query parameters on each receipt; historical success is not freshness for new filters. Failed/zero/never-attempted outcomes remain distinct. Live acceptance requires actual official responses and distribution-level CORS/permission evidence.
+
+## Official live validation correction (0.3)
+
+- Current runtime networking now permits the saved official hosts. Stop treating historical CONNECT403 as the active blocker. Use Node24's supported NODE_USE_ENV_PROXY option for the native test runner; never add a product backend just for source access.
+- Census actually requires a free API key and2023metadata usesNAICS2017. Choose the published metadata variable instead of guessing by year; never fabricate a key or persist it in a source receipt.
+- USAspending's default time filter can include old contracts with recent activity. Use documented new_awards_only so base transaction dates fall in the requested window.
+- TDLR's public search POST is verified; preserve registration/work/status semantics. FMCSA first pull is a baseline; compare only comparable dated reported-unit snapshots, without inferring authority issuance or verified expansion.
+- No Chromium certificate bypass is allowed. Existing platform CA import did not resolve its TLS error, so distinguish native API acceptance from unverified browser-live distribution behavior.

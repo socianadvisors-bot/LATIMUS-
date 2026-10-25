@@ -2,7 +2,7 @@
 
 The user requires all21 original trigger families, not a three-API substitute. The subsequent owner instruction permits excluding real-estate data **for now**: retain21 requirements in this ledger, with19 active and2 temporarily deferred (property acquisition and vacancy/distress). County deeds, appraisal/CAD, ownership/listing/broker feeds and private property deed-of-trust refinancing data are also deferred. Construction permits, TDLR, new facilities, energy projects and SEC/public corporate debt refinancing remain active. The original specification is preserved.
 
-This is a requirements ledger, not functioning detection. **Zero full automatic trigger detectors are implemented or live-validated.** Austin and USAspending have bounded raw-retrieval adapters coded and fixture-tested; they do not complete permit or award detection. Census CBP contributes an aggregate market baseline and covers none of the21 direct company triggers. Actual live source tests in this cloud machine remain blocked by proxy CONNECT403, before the official services respond; fixture success is not live evidence.
+This is a requirements ledger, not functioning detection. **Zero full automatic trigger detectors are implemented or live-validated.** Austin and USAspending have bounded raw-retrieval adapters coded and fixture-tested; they do not complete permit or award detection. Census CBP contributes an aggregate market baseline and covers none of the21 direct company triggers. The earlier CONNECT403 blocker has cleared: USAspending, Austin, TDLR and FMCSA now passed live API-level retrieval. Census requires a real free key; browser-live verification is separately blocked by cloud Chromium certificate trust. Full trigger qualification remains incomplete.
 
 The first three requirement columns below preserve the user's supplied21-row trigger / primary method / data-quality table exactly, including its coverage limitations. The quality column describes the user's expected source quality, **not measured quality of a working LATIMUS adapter**. The later owner deferral changes current scope, not the original table.
 
@@ -67,3 +67,7 @@ A row remains unfinished until its documented approved source can actually be re
 - No external send or material commitment follows automatically from a trigger.
 
 `src/domain/triggerCoverage.ts` supplies this same visible requirements catalog for the Sources UI. Its presence does not implement these detectors. Re-enable the deferred rows/components only when the owner restores that scope; do not delete the original requirements.
+
+## Version0.3 evidence update
+
+Source retrieval has advanced beyond the original ledger checkpoint: four native adapter API pulls passed against official endpoints; see live-api-evidence.json. T01nowhasTDLR+Austin public raw records; T03usesofficialnew-award filtering; T07hasprojectinputs; T16hasofficialcensusbaseline plus fixture-tested reported-unit comparisons. None of these facts imply all19active end-to-end trigger/qualification workflows are complete. Property acquisition/vacancy remain deferred. The typed Sources UI ledger records the current detailed gaps.

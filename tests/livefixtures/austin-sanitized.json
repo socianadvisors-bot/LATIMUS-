@@ -1,0 +1,82 @@
+{
+  "description": "Actual bounded official response with no personal names, contacts or addresses. Source facts are retained; not a complete trigger detector.",
+  "retrievedAt": "2026-10-25T02:35:29.715960+00:00",
+  "endpoint": "https://data.austintexas.gov/resource/3syk-w9eu.json",
+  "dataset": {
+    "id": "3syk-w9eu",
+    "name": "Issued Construction Permits",
+    "provenance": "official",
+    "attribution": "City of Austin, Texas - data.austintexas.gov"
+  },
+  "metadataColumns": [
+    {
+      "fieldName": "permit_type_desc",
+      "name": "Permit Type Desc",
+      "dataTypeName": "text"
+    },
+    {
+      "fieldName": "permit_number",
+      "name": "Permit Num",
+      "dataTypeName": "text"
+    },
+    {
+      "fieldName": "permit_class_mapped",
+      "name": "Permit Class Mapped",
+      "dataTypeName": "text"
+    },
+    {
+      "fieldName": "work_class",
+      "name": "Work Class",
+      "dataTypeName": "text"
+    },
+    {
+      "fieldName": "permit_location",
+      "name": "Project Name",
+      "dataTypeName": "text"
+    },
+    {
+      "fieldName": "issue_date",
+      "name": "Issued Date",
+      "dataTypeName": "calendar_date"
+    },
+    {
+      "fieldName": "total_job_valuation",
+      "name": "Total Job Valuation",
+      "dataTypeName": "number"
+    },
+    {
+      "fieldName": "project_id",
+      "name": "Project ID",
+      "dataTypeName": "number"
+    },
+    {
+      "fieldName": "contractor_company_name",
+      "name": "Contractor Company Name",
+      "dataTypeName": "text"
+    }
+  ],
+  "query": {
+    "$limit": "2",
+    "$order": "issue_date DESC",
+    "$where": "permit_class_mapped='Commercial'",
+    "$select": "permit_number,issue_date,permit_class_mapped,work_class,permit_type_desc,total_job_valuation,project_id"
+  },
+  "records": [
+    {
+      "permit_number": "2026-138512 BP",
+      "issue_date": "2026-10-23T00:00:00.000",
+      "permit_class_mapped": "Commercial",
+      "work_class": "Remodel",
+      "permit_type_desc": "Building Permit",
+      "project_id": "13792683"
+    },
+    {
+      "permit_number": "2026-139274 BP",
+      "issue_date": "2026-10-23T00:00:00.000",
+      "permit_class_mapped": "Commercial",
+      "work_class": "Remodel",
+      "permit_type_desc": "Building Permit",
+      "project_id": "13793568"
+    }
+  ]
+}

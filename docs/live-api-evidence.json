@@ -1,0 +1,78 @@
+[
+  {
+    "connectorId": "usaspending-awards",
+    "status": "succeeded",
+    "startedAt": "2026-10-25T02:45:43.526Z",
+    "completedAt": "2026-10-25T02:45:44.210Z",
+    "requestUrl": "https://api.usaspending.gov/api/v2/search/spending_by_award/",
+    "responseHash": "2ca9187bbd499067f34fefe65a6b00ec66dc828a90c2a15d30de81d77f07f95b",
+    "recordsFetched": 2,
+    "settings": {
+      "state": "TX",
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-25",
+      "keyword": "",
+      "year": "2023",
+      "naics": "00",
+      "limit": 2
+    },
+    "truncated": true
+  },
+  {
+    "connectorId": "austin-permits",
+    "status": "succeeded",
+    "startedAt": "2026-10-25T02:45:43.543Z",
+    "completedAt": "2026-10-25T02:45:44.781Z",
+    "requestUrl": "https://data.austintexas.gov/resource/3syk-w9eu.json?%24limit=2&%24order=issue_date+DESC&%24where=issue_date+%3E%3D+%272026-09-25T00%3A00%3A00%27+AND+issue_date+%3C+%272026-10-26T00%3A00%3A00%27",
+    "responseHash": "d0fd240c3ba77d00842475d2bc84a972afa27b999d1d8274ea06c62d83eec817",
+    "recordsFetched": 2,
+    "settings": {
+      "state": "TX",
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-25",
+      "keyword": "",
+      "year": "2023",
+      "naics": "00",
+      "limit": 2
+    },
+    "truncated": true
+  },
+  {
+    "connectorId": "tdlr-projects",
+    "status": "succeeded",
+    "startedAt": "2026-10-25T02:45:43.548Z",
+    "completedAt": "2026-10-25T02:45:43.886Z",
+    "requestUrl": "https://www.tdlr.texas.gov/TABS/Search/SearchProjects",
+    "responseHash": "24809a9b1701675b93afdf838c7fe3cb8f65b7e82daeda8697f1c104250362b5",
+    "recordsFetched": 2,
+    "settings": {
+      "state": "TX",
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-25",
+      "keyword": "",
+      "year": "2023",
+      "naics": "00",
+      "limit": 2
+    },
+    "truncated": true
+  },
+  {
+    "connectorId": "fmcsa-census",
+    "status": "succeeded",
+    "startedAt": "2026-10-25T02:45:43.549Z",
+    "completedAt": "2026-10-25T02:45:44.302Z",
+    "requestUrl": "https://data.transportation.gov/resource/az4n-8mr2.json?%24select=dot_number%2Clegal_name%2Cdba_name%2Cstatus_code%2Cpower_units%2Cmcs150_date%2Cadd_date%2Cphy_state%2Cphy_city&%24where=phy_state%3D%27TX%27&%24order=dot_number+ASC&%24limit=2",
+    "responseHash": "3ec39769e2cc440f640a5dd2f9db501895e88e15ce22c19014c4e5e9b6541a94",
+    "recordsFetched": 2,
+    "settings": {
+      "state": "TX",
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-25",
+      "keyword": "",
+      "year": "2023",
+      "naics": "00",
+      "limit": 2
+    },
+    "truncated": true
+  }
+]

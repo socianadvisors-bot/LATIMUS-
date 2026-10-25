@@ -54,7 +54,7 @@ function Root(){
     autoRunning.current=true;const timer=setTimeout(()=>{act({type:'jobs.run'}).catch(e=>setError(e.message)).finally(()=>{autoRunning.current=false;});},250);
     return()=>{clearTimeout(timer);autoRunning.current=false;};
   },[workspace?.revision,workspace?.id]);
-  async function pullSource(sourceId:string){
+  async function pullSource(sourceId:string,credentials?:{censusApiKey?:string}){
     const current=session.current;if(!current)throw new Error('Unlock the workspace first.');const g=current.generation;
     const source=current.workspace.sources.find(s=>s.id===sourceId);if(!source)throw new Error('Source not found.');
     if(pulls.current.has(sourceId))throw new Error('This source request is already running.');
@@ -63,7 +63,7 @@ function Root(){
     try{
       await requestSourcePermission(source);
       if(session.current?.generation!==g)throw new Error('Workspace locked; no source data was saved.');
-      const run=await retrieveSource(structuredClone(source),fetch,controller.signal);
+      const run=await retrieveSource(structuredClone(source),fetch,controller.signal,credentials);
       if(session.current?.generation!==g)throw new Error('Workspace changed; no source data was saved.');
       const latest=session.current.workspace.sources.find(s=>s.id===sourceId);if(JSON.stringify(latest?.settings)!==JSON.stringify(source.settings))throw new Error('Source settings changed during retrieval. Retry with the new filters.');
       await act({type:'source.retrieved',run});
@@ -97,7 +97,7 @@ function Root(){
     <button className="gate-submit" disabled={busy} type="submit">{busy?'Securing workspace…':importFile?'Preview & restore':creating?'Create encrypted workspace':'Unlock workspace'}<ArrowRight size={18}/></button>
     <div className="gate-recovery"><KeyRound size={15}/><span>Keep your passphrase safe. There is no password reset. Export encrypted backups regularly.{portableMode()?' File mode requires explicit export before closing.':''}</span></div>
     </form>}
-    <div className="gate-alternatives"><label className="gate-import"><Upload size={15}/> Restore encrypted file<input type="file" accept=".json" onChange={e=>{setImportFile(e.target.files?.[0]||null);setError('');}}/></label>{envelope&&<button onClick={()=>{setCreating(!creating);setError('');setImportFile(null);}}>{creating?'Use existing workspace':'Create a new workspace'}</button>}</div><div className="gate-version">LATIMUS 0.2 · LOCAL TOOLS + ASSISTED HANDOFF<br/>Live providers and outbound sending are not connected.</div>
+    <div className="gate-alternatives"><label className="gate-import"><Upload size={15}/> Restore encrypted file<input type="file" accept=".json" onChange={e=>{setImportFile(e.target.files?.[0]||null);setError('');}}/></label>{envelope&&<button onClick={()=>{setCreating(!creating);setError('');setImportFile(null);}}>{creating?'Use existing workspace':'Create a new workspace'}</button>}</div><div className="gate-version">LATIMUS 0.3 · LOCAL TOOLS + ASSISTED HANDOFF<br/>Live providers and outbound sending are not connected.</div>
     </div></section></main>;
 }
 createRoot(document.getElementById('root')!).render(<React.StrictMode><Root/></React.StrictMode>);

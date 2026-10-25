@@ -1,45 +1,41 @@
-# Source retrieval — version 0.2
+# Source retrieval — version0.3
 
-The original sourcing requirement includes21 trigger families. This release does **not** satisfy all21. The owner has temporarily deferred real-estate-specific data: county deed/CAD ownership and property acquisition, vacancy/listing/broker data, and private deed-of-trust refinancing feeds. Construction/facility permits and SEC debt/refinancing signals remain required. The complete acceptance ledger is `TRIGGER_SOURCE_ACCEPTANCE.md`.
+The network allowlist is now active. The earlier CONNECT403 blocker has cleared. Four adapters have passed real official-service API retrieval through the same application adapter/parser code with HTTPS verification enabled. This does not establish full browser/extension acceptance or completion of the user's19 active trigger families.
 
-## Implemented code
+## Current adapters
 
-Three fixed public-source adapters have been implemented:
-
-| Adapter | Data returned | Boundary |
+| Adapter | Observed result | Meaning / remaining boundary |
 |---|---|---|
-| USAspending | Bounded federal prime contract search by state, time window and keyword, including recipient, amount, agency, obligation dates and references | Awardee is distinct from agency; date window may include activity on existing contracts; no automatic claim of a new award or qualified opportunity |
-| Austin permits | Metadata-validated, bounded public issued-permit records from candidate dataset3syk-w9eu | Austin only; exact live metadata still unverified; contractor is not automatically owner or intended client; permit date is preserved |
-| Census CBP | Annual state/NAICS establishment, employment and payroll baseline | Aggregate statistics, not company events; payroll units are thousands of dollars; suppression flags retained; released2023+ year needed |
+| USAspending federal prime contracts | Live API passed,2 records | Fixed date_type=new_awards_only; returned base dates fall inside the requested window. Awardee is separate from agency. Texas state awards and full need/qualification detection remain unfinished. |
+| City of Austin issued permits | Live official metadata and API passed,2 records | Actual fields permit_number/issue_date verified. Records include different work classes; a permit is not automatically new construction or a qualified business lead. Other municipalities remain open. |
+| TDLR TABS public projects | Live public form POST passed,2 records | Preserves registration dates, project IDs, status/work codes and estimated cost.9001newconstruction,9002renovation,9003addition remain distinct. Registration is not municipal permit issuance. No project/facility name is asserted to be a verified company/owner. |
+| FMCSA Company Census | Live official metadata/API passed,2 records | Minimal public carrier/DOT/status/power-unit fields. First pull is a baseline. Comparable snapshot differences are fixture-tested and displayed as unverified observations, not verified expansion or new authority. |
+| Census CBP | Metadata passed; actual data requires a free key | No-key data requests redirect to official missing_key.html. Metadata confirms2023usesNAICS2017; adapter now discovers classification from metadata. Owner must supply a real key for data acceptance. No dummy credentials were sent to Census. |
 
-Implementation means code exists and controlled fixtures pass. It does **not** mean official endpoint schema, current availability, CORS, data completeness or extension-origin access has passed a live test. All live checks are currently blocked by the cloud egress proxy before reaching these services.
+Evidence: `live-api-evidence.json` stores request identities, filters, counts, timestamps and response hashes. It contains no credentials or full personal records. The bounded native runner is:
 
-In Sources, choose Configure source, save public query filters, then Pull now. In an extension, explicitly grant the selected source's optional host access. Portable mode attempts normal direct browser requests and may be blocked by the source's CORS policy. No hidden proxy/server is supplied. For browsers without supported access, manual import remains available but does not satisfy the outstanding live-adapter requirement.
+```sh
+NODE_USE_ENV_PROXY=1 node_modules/.bin/vite-node scripts/check-live-sources.ts
+```
 
-## Receipt and failure semantics
+Node24 uses the platform-provided HTTPS proxy and CA bundle. This is a development verification command, not a mandatory backend or end-user runtime service. A missing optional CENSUS_API_KEY is reported as unrun, not passed. Enter a real key securely in environment settings for cloud verification; never put its value in chat or repository files.
 
-Every accepted pull stores query filters, attempt/completion timestamps, count, normalized public fields, exact request URL, SHA-256 of the returned JSON, truncated-page warning and either success or failure. The latest successful snapshot survives failures; only the latest failure and good snapshot are retained per source. This is bounded snapshot retention, not an exhaustive ingestion archive. Request URL plus saved filters preserve the USAspending POST query parameters.
+## Using the app
 
-No source outage, timeout, invalid JSON, schema change, HTTP error or quota failure fabricates fresh records. Empty successful results replace prior success with a true zero result. Changing state/date filters marks the current query unverified; historical data retains its old filters. Imports and source content cannot change policy or approve actions.
+1. Open the updated distribution. In Sources, choose a public adapter and Configure source.
+2. Set geography/query filters and bounded record limit; save, then Pull now.
+3. In extension mode, grant only the selected source's optional host permission. TDLR's public endpoint does not advertise browser CORS in observed responses, so direct portable requests may be blocked; use extension mode for that source.
+4. For Census only, obtain a free key from https://api.census.gov/data/key_signup.html and enter it in the source card's next-pull-only password field. It clears before the request. It never enters settings, encrypted workspace records, provenance URLs or exports. Other four adapters do not need that key.
+5. Review returned facts, specific date labels, source roles and limitations before creating signals. Retrieval does not verify evidence, create a lead, grant permission or send outreach.
 
-Pulled facts are staged for review. This version does not automatically infer needs, classify all required trigger types, score companies, verify contacts or start outreach. The original prompt requires those downstream functions; the new21-row ledger explicitly keeps them open.
+The workspace keeps up to two successful snapshots and the latest failure per source. Failures preserve good records without refreshing last-success timestamps; zero successful results are a true empty snapshot. Changing filters marks the new query unverified and labels prior data. FMCSA comparisons require the same source/DOT/query scope and chronological successful snapshots with unambiguous positive counts; missing, zero or suppressed values cannot prove growth.
 
-## External blocker
+## Browser acceptance limits
 
-Actual requests returned `Tunnel connection failed:403 Forbidden` at the cloud egress proxy. Six narrowly scoped domains were saved in the environment configuration draft:
+Core/browser fixture tests exercise fetch, parsing, encrypted persistence, raw display, empty/error/stale states, Census-key clearing and FMCSA comparison. These are controlled responses, distinct from official API-level live tests.
 
-- api.census.gov
-- api.usaspending.gov
-- data.austintexas.gov
-- data.texas.gov
-- data.transportation.gov
-- www.tdlr.texas.gov
+Cloud Chromium still rejects the platform's intercepted HTTPS chain with ERR_CERT_AUTHORITY_INVALID. The issuer matches an existing platform CA. Adding those existing public CAs to Chromium's new NSS location did not resolve the browser error; no certificate checks were disabled, and no browser-live success is claimed. This is a cloud browser trust-configuration issue separate from the now-working API allowlist. Managed file-URL and extension-install policies also continue to block those acceptance targets. End-user desktop acceptance remains required.
 
-The last four support official metadata/TDLR/FMCSA research as well as the Austin adapter. A successful draft save does not apply runtime networking. Review and save the network changes in environment settings to unblock official endpoint verification. Publish only after validation to snapshot the configured environment. This runtime blocker is separate from source-side credentials/CORS and does not prove those services are broken. No API-key value is requested in chat; no credential is currently required by the three coded bounded public requests.
+## Required work remaining
 
-## Tests
-
-- Unit fixtures exercise contract request filters, private awardee identity, date semantics, Socrata metadata fields, Census suppression/units, schema/HTTP/CORS-style failures, zero records, stream capacity, latest-good retention, stale-filter rejection and old-vault additive compatibility.
-- Browser fixtures intercept actual requests to test the fetch→parse→encrypted receipt→UI path and visible stale/error state. Those fixtures are explicitly labeled test data and are **not live-source evidence**.
-- Original local workspace, finance, approvals, PMO, backup and offline workflows remain covered.
-- Source-side CORS, actual endpoint responses, extension permission behavior and all remaining trigger adapters/detectors still need acceptance. See `docs/ACCEPTANCE.md` and `docs/SOURCE_RESEARCH.md`.
+The original21 source/trigger rows remain preserved. The owner deferred real-estate-specific data for now, leaving19 active triggers. Five retrieval adapters are not completion of that scope. SEC/FormD, leadership/financial disclosures, jobs, Texas awards, new DOT authority, energy/regulatory sources, risk/reviews, supplier disruptions and reliable reviewed exit signals remain unfinished as recorded in `TRIGGER_SOURCE_ACCEPTANCE.md`.
