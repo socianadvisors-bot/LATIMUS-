@@ -6,6 +6,7 @@ const MAX_BYTES=2*1024*1024;
 const isExtension=()=>location.protocol==='chrome-extension:';
 /** Called directly from a user click. No content-script bridge and no arbitrary URL argument. */
 export async function requestSourcePermission(source:Source):Promise<void>{
+ if(source.connectorId==='csv-import'||source.mode!=='connected')throw new Error('This source supports explicit manual import, not a live pull.');
  if(!source.connectorId)throw new Error('This source has no retrieval adapter.');
  const def=connectorDefinition(source.connectorId);
  if(!isExtension())return;

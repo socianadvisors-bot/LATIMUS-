@@ -2,9 +2,9 @@ import {readEnvelope,type VaultEnvelope} from './crypto';
 const KEY='active';
 // Explicit portable preview also permits verification where managed browsers block file://.
 export const portableMode=()=>location.protocol==='file:'||new URLSearchParams(location.search).get('mode')==='portable';
-function database():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{
-  const req=indexedDB.open('latimus-vault-v1',1);
-  req.onupgradeneeded=()=>req.result.createObjectStore('vault');
+export function database():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{
+  const req=indexedDB.open('latimus-vault-v1',2);
+  req.onupgradeneeded=()=>{for(const name of ['vault','provider-vault','file-handles'])if(!req.result.objectStoreNames.contains(name))req.result.createObjectStore(name);};
   req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(new Error('Encrypted browser storage is unavailable. Export a workspace file.'));
 });}
 export async function loadVault():Promise<VaultEnvelope|null>{

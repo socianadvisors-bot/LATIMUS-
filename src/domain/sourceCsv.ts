@@ -1,0 +1,18 @@
+import {MASTER_SOURCES} from './sourceMaster';
+import type {Workspace,Action,SourceRun,RetrievedRecord} from './types';
+import {defaultSourceSettings} from './connectors';
+import {sha256} from '../platform/crypto';
+export async function importMasterSourceCsv(w:Workspace,a:Extract<Action,{type:'source.csv.import'}>):Promise<string>{
+ const feed=MASTER_SOURCES.find(f=>f.id===a.feedId);if(!feed)throw new Error('Unknown master source.');if(feed.ownerDisabled)throw new Error('This property-only source remains disabled by the owner.');
+ if(!a.rows.length||a.rows.length>1000||!a.headers.length||a.headers.length>200||JSON.stringify([a.headers,a.rows]).length>3*1024*1024)throw new Error('Source CSV import supports 1–1,000 rows within the bounded source snapshot capacity.');
+ if(!/^[a-f0-9]{64}$/.test(a.fileHash))throw new Error('Source file hash is invalid.');if(w.sourceRuns.some(r=>r.feedId===feed.id&&r.importFileHash===a.fileHash))throw new Error('This exact source CSV was already imported.');
+ let source=w.sources.find(s=>s.feedId===feed.id)||w.sources.find(s=>feed.connectorId&&s.connectorId===feed.connectorId);const now=new Date().toISOString();
+ if(!source){source={id:crypto.randomUUID(),name:feed.name,family:feed.family,url:feed.url,tier:feed.sourceTier,geography:feed.geography,mode:'import',health:'not checked',cadence:feed.checkCadence,limitations:'Manual source CSV import. No live connection, identity verification or trigger is implied.',connectorId:'csv-import',feedId:feed.id};w.sources.push(source);}else source.feedId=feed.id;
+ const normalizedHeaders=a.headers.map(h=>h.toLowerCase().replace(/[^a-z0-9]/g,''));const field=(row:string[],aliases:string[])=>{const i=normalizedHeaders.findIndex(h=>aliases.includes(h));return i>=0?row[i]||'':'';};const records:RetrievedRecord[]=[];
+ for(let index=0;index<a.rows.length;index++){
+  const row=a.rows[index];if(row.length>a.headers.length)throw new Error('Source CSV contains more cells than headers.');const fingerprint=await sha256(JSON.stringify(row));const ref=field(row,['sourceurl','reference','url','evidenceurl']);let reference=source.url;try{const u=new URL(ref);if(u.protocol==='https:'&&!u.username&&!u.password)reference=u.href;}catch{}
+  records.push({id:`${feed.id}:${fingerprint.slice(0,24)}:${index}`,title:(field(row,['title','projectname','description','event','permitnumber','awardid'])||row[0]||'Source row '+(index+1)).slice(0,1000),organization:field(row,['company','companyname','employer','recipientname','legalname','firm']).slice(0,1000),date:field(row,['eventdate','issuedate','date','filingdate','registrationdate']).slice(0,300),dateLabel:'User-imported source date; unknown when absent',geography:field(row,['geography','city','state'])||feed.geography,reference,fields:Object.fromEntries(row.slice(0,40).map((cell,i)=>[`${a.headers[i]||'Column'} [${i+1}]`,cell.slice(0,2000)]))});
+ }
+ const run:SourceRun={id:crypto.randomUUID(),sourceId:source.id,connectorId:'csv-import',settings:source.settings||defaultSourceSettings(),status:'succeeded',startedAt:now,completedAt:now,requestUrl:source.url,responseHash:a.fileHash,recordsFetched:records.length,records,warning:'Manual CSV import; no network retrieval occurred. All original columns/rows are retained in rawHeaders/rawRows; displayed fact fields are a bounded preview. No signals, prospects, scores or outreach were created.',truncated:false,mode:'manual_import',origin:'intelligence_signal',feedId:feed.id,rawHeaders:[...a.headers],rawRows:a.rows.map(r=>[...r]),importFileName:a.fileName,importFileHash:a.fileHash};
+ w.sourceRuns.push(run);source.lastImport=now;source.health='imported';return run.id;
+}

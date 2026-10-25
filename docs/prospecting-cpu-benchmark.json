@@ -1,0 +1,314 @@
+{
+  "recordedAt": "2026-10-25T03:57:40.844Z",
+  "runtime": "v24.19.0",
+  "platform": "linux",
+  "scope": "Actual Node CPU/memory and production AES-GCM/PBKDF2 vault roundtrip timings with complete fictional generated batch/row/company-cache payloads. No HTTP requests, browser UI, IndexedDB/disk persistence, device/ChromeOS, cancellation or browser performance is established. Memory readings are point-in-time samples, not measured peaks. memoryAfterDecryption follows the identical decoded-payload JSON row-count check; memoryImmediatelyAfterDecryption is sampled before that check.",
+  "measurements": [
+    {
+      "count": 100,
+      "mode": "repeated-company",
+      "startedAt": "2026-10-25T03:57:28.802Z",
+      "completedAt": "2026-10-25T03:57:29.470Z",
+      "inputBytes": 9533,
+      "parseMs": 2.68,
+      "normalizeMs": 15.52,
+      "groupMs": 0.22,
+      "coldFixtureExtractionAndScoringMs": 20.65,
+      "warmCacheScoringMs": 7.1,
+      "exportMs": 2.91,
+      "companies": 1,
+      "pagesParsed": 1,
+      "warmCacheHits": 1,
+      "verified": 100,
+      "exportBytes": 58949,
+      "serializedPayloadBytes": 206254,
+      "encryptedEnvelopeBytes": 275182,
+      "createVaultIncludingKdfMs": 213.47,
+      "openVaultIncludingKdfMs": 391.6,
+      "authenticatedRoundtripEqual": true,
+      "nonextractableEncryptionKey": true,
+      "nonextractableDecryptionKey": true,
+      "memoryBeforeCrypto": {
+        "heapUsedBytes": 8148800,
+        "externalBytes": 2413034,
+        "arrayBufferBytes": 403928,
+        "residentSetBytes": 42508288
+      },
+      "memoryAfterEncryption": {
+        "heapUsedBytes": 8374304,
+        "externalBytes": 2820747,
+        "arrayBufferBytes": 410115,
+        "residentSetBytes": 45006848
+      },
+      "memoryImmediatelyAfterDecryption": {
+        "heapUsedBytes": 9049664,
+        "externalBytes": 3439699,
+        "arrayBufferBytes": 822781,
+        "residentSetBytes": 46555136
+      },
+      "memoryAfterDecryption": {
+        "heapUsedBytes": 9367856,
+        "externalBytes": 3439699,
+        "arrayBufferBytes": 822781,
+        "residentSetBytes": 46555136
+      },
+      "heapDeltaBytes": 3936888,
+      "httpRequests": 0
+    },
+    {
+      "count": 100,
+      "mode": "unique-company",
+      "startedAt": "2026-10-25T03:57:29.471Z",
+      "completedAt": "2026-10-25T03:57:29.732Z",
+      "inputBytes": 9803,
+      "parseMs": 2.41,
+      "normalizeMs": 6.05,
+      "groupMs": 0.11,
+      "coldFixtureExtractionAndScoringMs": 31.1,
+      "warmCacheScoringMs": 6.53,
+      "exportMs": 0.81,
+      "companies": 100,
+      "pagesParsed": 100,
+      "warmCacheHits": 100,
+      "verified": 100,
+      "exportBytes": 59829,
+      "serializedPayloadBytes": 277746,
+      "encryptedEnvelopeBytes": 370506,
+      "createVaultIncludingKdfMs": 130.31,
+      "openVaultIncludingKdfMs": 76.69,
+      "authenticatedRoundtripEqual": true,
+      "nonextractableEncryptionKey": true,
+      "nonextractableDecryptionKey": true,
+      "memoryBeforeCrypto": {
+        "heapUsedBytes": 9857744,
+        "externalBytes": 3304790,
+        "arrayBufferBytes": 687904,
+        "residentSetBytes": 55173120
+      },
+      "memoryAfterEncryption": {
+        "heapUsedBytes": 12307312,
+        "externalBytes": 3582595,
+        "arrayBufferBytes": 687947,
+        "residentSetBytes": 56229888
+      },
+      "memoryImmediatelyAfterDecryption": {
+        "heapUsedBytes": 8324240,
+        "externalBytes": 2930682,
+        "arrayBufferBytes": 448542,
+        "residentSetBytes": 56700928
+      },
+      "memoryAfterDecryption": {
+        "heapUsedBytes": 8761664,
+        "externalBytes": 2930682,
+        "arrayBufferBytes": 448542,
+        "residentSetBytes": 56700928
+      },
+      "heapDeltaBytes": -697952,
+      "httpRequests": 0
+    },
+    {
+      "count": 1000,
+      "mode": "repeated-company",
+      "startedAt": "2026-10-25T03:57:29.732Z",
+      "completedAt": "2026-10-25T03:57:30.240Z",
+      "inputBytes": 95933,
+      "parseMs": 11.14,
+      "normalizeMs": 25.35,
+      "groupMs": 0.62,
+      "coldFixtureExtractionAndScoringMs": 46.75,
+      "warmCacheScoringMs": 33.39,
+      "exportMs": 14.9,
+      "companies": 1,
+      "pagesParsed": 1,
+      "warmCacheHits": 1,
+      "verified": 1000,
+      "exportBytes": 587349,
+      "serializedPayloadBytes": 2055856,
+      "encryptedEnvelopeBytes": 2741318,
+      "createVaultIncludingKdfMs": 256.9,
+      "openVaultIncludingKdfMs": 87.01,
+      "authenticatedRoundtripEqual": true,
+      "nonextractableEncryptionKey": true,
+      "nonextractableDecryptionKey": true,
+      "memoryBeforeCrypto": {
+        "heapUsedBytes": 20921336,
+        "externalBytes": 4708749,
+        "arrayBufferBytes": 2226609,
+        "residentSetBytes": 72273920
+      },
+      "memoryAfterEncryption": {
+        "heapUsedBytes": 22216352,
+        "externalBytes": 6486891,
+        "arrayBufferBytes": 2226625,
+        "residentSetBytes": 96636928
+      },
+      "memoryImmediatelyAfterDecryption": {
+        "heapUsedBytes": 26365840,
+        "externalBytes": 14710505,
+        "arrayBufferBytes": 6338495,
+        "residentSetBytes": 107122688
+      },
+      "memoryAfterDecryption": {
+        "heapUsedBytes": 29478160,
+        "externalBytes": 14710505,
+        "arrayBufferBytes": 6338495,
+        "residentSetBytes": 107122688
+      },
+      "heapDeltaBytes": 22538376,
+      "httpRequests": 0
+    },
+    {
+      "count": 1000,
+      "mode": "unique-company",
+      "startedAt": "2026-10-25T03:57:30.243Z",
+      "completedAt": "2026-10-25T03:57:30.776Z",
+      "inputBytes": 101603,
+      "parseMs": 2.41,
+      "normalizeMs": 26.79,
+      "groupMs": 0.92,
+      "coldFixtureExtractionAndScoringMs": 94.19,
+      "warmCacheScoringMs": 26.43,
+      "exportMs": 11.53,
+      "companies": 1000,
+      "pagesParsed": 1000,
+      "warmCacheHits": 1000,
+      "verified": 1000,
+      "exportBytes": 608029,
+      "serializedPayloadBytes": 2807748,
+      "encryptedEnvelopeBytes": 3743842,
+      "createVaultIncludingKdfMs": 215.93,
+      "openVaultIncludingKdfMs": 118.08,
+      "authenticatedRoundtripEqual": true,
+      "nonextractableEncryptionKey": true,
+      "nonextractableDecryptionKey": true,
+      "memoryBeforeCrypto": {
+        "heapUsedBytes": 30057776,
+        "externalBytes": 13406394,
+        "arrayBufferBytes": 5034416,
+        "residentSetBytes": 118169600
+      },
+      "memoryAfterEncryption": {
+        "heapUsedBytes": 45694152,
+        "externalBytes": 16214201,
+        "arrayBufferBytes": 5034459,
+        "residentSetBytes": 164896768
+      },
+      "memoryImmediatelyAfterDecryption": {
+        "heapUsedBytes": 22697152,
+        "externalBytes": 12854290,
+        "arrayBufferBytes": 2978544,
+        "residentSetBytes": 157958144
+      },
+      "memoryAfterDecryption": {
+        "heapUsedBytes": 27008240,
+        "externalBytes": 12854290,
+        "arrayBufferBytes": 2978544,
+        "residentSetBytes": 157958144
+      },
+      "heapDeltaBytes": -3098280,
+      "httpRequests": 0
+    },
+    {
+      "count": 10000,
+      "mode": "repeated-company",
+      "startedAt": "2026-10-25T03:57:30.778Z",
+      "completedAt": "2026-10-25T03:57:35.037Z",
+      "inputBytes": 968933,
+      "parseMs": 25.15,
+      "normalizeMs": 191.88,
+      "groupMs": 11.6,
+      "coldFixtureExtractionAndScoringMs": 711.07,
+      "warmCacheScoringMs": 567.48,
+      "exportMs": 201.83,
+      "companies": 1,
+      "pagesParsed": 1,
+      "warmCacheHits": 1,
+      "verified": 10000,
+      "exportBytes": 5898349,
+      "serializedPayloadBytes": 20587858,
+      "encryptedEnvelopeBytes": 27450654,
+      "createVaultIncludingKdfMs": 1570.96,
+      "openVaultIncludingKdfMs": 475.72,
+      "authenticatedRoundtripEqual": true,
+      "nonextractableEncryptionKey": true,
+      "nonextractableDecryptionKey": true,
+      "memoryBeforeCrypto": {
+        "heapUsedBytes": 90439512,
+        "externalBytes": 30634357,
+        "arrayBufferBytes": 20758611,
+        "residentSetBytes": 316559360
+      },
+      "memoryAfterEncryption": {
+        "heapUsedBytes": 165212104,
+        "externalBytes": 46358643,
+        "arrayBufferBytes": 20758627,
+        "residentSetBytes": 388972544
+      },
+      "memoryImmediatelyAfterDecryption": {
+        "heapUsedBytes": 87782200,
+        "externalBytes": 108122335,
+        "arrayBufferBytes": 170726,
+        "residentSetBytes": 428003328
+      },
+      "memoryAfterDecryption": {
+        "heapUsedBytes": 118832680,
+        "externalBytes": 108122335,
+        "arrayBufferBytes": 170726,
+        "residentSetBytes": 428003328
+      },
+      "heapDeltaBytes": 110138520,
+      "httpRequests": 0
+    },
+    {
+      "count": 10000,
+      "mode": "unique-company",
+      "startedAt": "2026-10-25T03:57:35.074Z",
+      "completedAt": "2026-10-25T03:57:40.816Z",
+      "inputBytes": 1055603,
+      "parseMs": 20.14,
+      "normalizeMs": 243.83,
+      "groupMs": 6.02,
+      "coldFixtureExtractionAndScoringMs": 1668.94,
+      "warmCacheScoringMs": 510.15,
+      "exportMs": 248.59,
+      "companies": 10000,
+      "pagesParsed": 10000,
+      "warmCacheHits": 10000,
+      "verified": 10000,
+      "exportBytes": 6225029,
+      "serializedPayloadBytes": 28422750,
+      "encryptedEnvelopeBytes": 37897178,
+      "createVaultIncludingKdfMs": 1926.61,
+      "openVaultIncludingKdfMs": 535.59,
+      "authenticatedRoundtripEqual": true,
+      "nonextractableEncryptionKey": true,
+      "nonextractableDecryptionKey": true,
+      "memoryBeforeCrypto": {
+        "heapUsedBytes": 210923520,
+        "externalBytes": 74781302,
+        "arrayBufferBytes": 28593476,
+        "residentSetBytes": 503447552
+      },
+      "memoryAfterEncryption": {
+        "heapUsedBytes": 149068592,
+        "externalBytes": 59220632,
+        "arrayBufferBytes": 28593504,
+        "residentSetBytes": 527261696
+      },
+      "memoryImmediatelyAfterDecryption": {
+        "heapUsedBytes": 134954744,
+        "externalBytes": 87640915,
+        "arrayBufferBytes": 28593546,
+        "residentSetBytes": 500789248
+      },
+      "memoryAfterDecryption": {
+        "heapUsedBytes": 121504800,
+        "externalBytes": 87640915,
+        "arrayBufferBytes": 170726,
+        "residentSetBytes": 444166144
+      },
+      "heapDeltaBytes": -3164328,
+      "httpRequests": 0
+    }
+  ]
+}

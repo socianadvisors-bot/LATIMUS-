@@ -16,3 +16,7 @@ Use IndexedDB for structured/blob persistence in extension mode, explicit portab
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Workspace schema1 adds empty-default prospect arrays; IndexedDB1→2 adds private provider/handle stores while preserving old ciphertext. Vault capacity is64MiB plaintext/96MiB file import. Provider keys are encrypted and excluded from workspace exports. Use generation guards around encryption, storage and background unlock; restore after lock must stay locked.

@@ -1,0 +1,2 @@
+import {parseProspectCsv} from '../domain/prospecting';
+self.onmessage=(event:MessageEvent)=>{try{const v=event.data;if(!v||v.type!=='parse'||typeof v.text!=='string')throw new Error('Invalid CSV worker request.');const result=parseProspectCsv(v.text,{maxRows:50000,maxBytes:10*1024*1024});self.postMessage({ok:true,result});}catch(e){self.postMessage({ok:false,error:e instanceof Error?e.message:'CSV parsing failed.'});}};

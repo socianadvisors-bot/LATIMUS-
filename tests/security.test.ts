@@ -11,7 +11,7 @@ describe('authenticated encrypted workspace',()=>{
     const opened=await openVault(envelope,'correct horse battery staple');expect(validateWorkspace(JSON.parse(opened.text))).toEqual(w);
     await expect(openVault(envelope,'wrong password supplied')).rejects.toThrow('Unable to unlock');
     const changed={...envelope,ciphertext:envelope.ciphertext.slice(0,-8)+'ABCDABCD'};await expect(openVault(changed,'correct horse battery staple')).rejects.toThrow('Unable to unlock');
-    await expect(seal('a'.repeat(16*1024*1024+1),key,envelope.salt)).rejects.toThrow('16 MB');
+    await expect(seal('a'.repeat(64*1024*1024+1),key,envelope.salt)).rejects.toThrow('64 MB');
     const again=await seal(JSON.stringify(w),key,envelope.salt);expect(again.iv).not.toEqual(envelope.iv);
   });
   it('rejects weak passphrases, attacker-controlled KDF costs and schema versions',async()=>{

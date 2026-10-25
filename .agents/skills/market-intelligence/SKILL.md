@@ -16,3 +16,7 @@ Rank markets using available establishment, employment, wages/payroll, project, 
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Preserve csv_prospect versus intelligence_signal intake. Public market/source records never create prospect CSV batches. Company 360 may link both with retained origins; mixed construction/facility feeds remain active despite property-only deferral.

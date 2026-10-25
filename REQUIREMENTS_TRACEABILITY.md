@@ -25,7 +25,7 @@ Status meanings: `TESTED_FIXTURE` = exercised by unit/integration fixtures; `COD
 | R15 Evidence/provenance, §12 | TESTED_FIXTURE | Separate event/publication/discovery/import dates, reference, excerpt, tier, review, SHA-256 | Evidence dedup, wrong-tier/failed/stale/future/contradiction gate tests | Independent source authentication, richer confidence/claim conflicts and full lineage exports |
 | R16 Company identity / signal fingerprint, §§13–14 | TESTED_FIXTURE | Exact normalized names/aliases, domain conflict rejection, event fingerprint | Four sources → one company/signal + four evidence records; repeated import idempotent | Human merge queue, subsidiary/identifier reconciliation, richer confidence logic |
 | R17 100-point versioned EOS and bands, §15 | TESTED_FIXTURE | Bounded 30/25/20/15/10 integer components, `eos-1.0.0` | Maxima/boundary/invalid input tests | Score history, approved overrides and formula-change evaluation |
-| R18 POC enrichment and weak-evidence gates, §§12,15 | TESTED_FIXTURE | EOS65+, human-verified current A/B or two different-host C sources; Tier D blocked | EOS64, Tier D100, stale, unreviewed and failed-source tests | Research executor, owner overrides, configurable evidence policy and source-independence review |
+| R18 POC enrichment and weak-evidence gates, §§12,15 | TESTED_FIXTURE | EOS 65+, human-verified current A/B or two different-host C sources; Tier D blocked | EOS64, Tier D100, stale, unreviewed and failed-source tests | Research executor, owner overrides, configurable evidence policy and source-independence review |
 | R19 Outcome-owner mapping and contact states, §§13,16 | IN_PROGRESS | Sector/trigger role rationale; separate user-provided/unverified/public/unavailable states | Policy validates eligible contact state and account link | Configurable company/ownership/geography rules; actual public POC verification and evidence freshness |
 | R20 Cadence and honest paused operation, §17 | IN_PROGRESS | Sources show manual cadence; jobs execute only open/unlocked | Local report restart fixture | General due-on-resume/awaiting-unlock scheduler, sleep/device fault acceptance |
 | R21 Durable work engine, §§6,25 | IN_PROGRESS | Persisted local report jobs, attempts, status, artifact idempotency | Restart representation + one artifact receipt fixture | General dependencies, deadlines, backoff, checkpoints, leases, cancellation/recovery semantics, outbox reconciliation |
@@ -76,3 +76,40 @@ Manual/imported sample sources are opt-in fictional fixtures, labeled in the UI 
 The owner's explicit21-row source list is the controlling acceptance checklist for sourcing. Real-estate data is temporarily deferred by the owner; two property-specific triggers are deferred and19 remain active, with the private deed-of-trust component of refinancing also deferred. SEC refinancing remains required. See docs/TRIGGER_SOURCE_ACCEPTANCE.md for row-by-row status.
 
 `src/domain/connectors.ts`, `src/platform/sources.ts`, SourcesPanel and source-run actions implement three bounded direct request pipelines. Tests cover fixed URL/filter construction, raw field semantics, zero/error/schema/size handling, encrypted receipts, stale-query rejection and additive old-vault compatibility. Browser fixtures test actual fetch→parse→persist→render, not official live endpoints. Full source-backed trigger detection and remaining source adapters are **not implemented**. No row is upgraded to live-tested or fully covered from these pipeline fixtures.
+
+## Re-administration requirements baseline
+
+Authority: MASTER_READMINISTRATION_PROMPT.md; supplied55-source plan and translated enrichment behavior. Existing evidence retained above. New coverage is not asserted before execution.
+
+| ID | Required behavior | Baseline before expansion | Evidence target |
+|---|---|---|---|
+| RA01 | CSV-first raw import/mapping/all-column preservation | NOT BUILT | parser/export fidelity, duplicate hash, browser import/mapping |
+| RA02 | Company-first research/cache/resolution | NOT BUILT | grouping/cache reuse, ambiguity, approved extension crawl |
+| RA03 | Public evidence/contact confidence/generic separation | NOT BUILT | observed-only matching, false-positive fixtures, evidence review |
+| RA04 | Durable prospect jobs/pause/resume/cancel/retry | NOT BUILT | encrypted checkpoints, interruption/cancel/provider-failure tests |
+| RA05 |55 source master metadata/deployment/health | PARTIAL existing5adapters | exact 55rows, truthful support state, representative source/import |
+| RA06 | Shared spine/distinct csv_prospect vs intelligence_signal | PARTIAL sharedrecords | migration, sharedCompany360, no silent intake blending |
+| RA07 | Explicit CRM/outreach promotion; CSV noEOSgate | PARTIAL existingapprovalpolicy | selected review, dedup/suppression, provenance and approval fixtures |
+| RA08 | Three independent scoring systems | PARTIAL EOSonly | separate Permit Score/EOS/ContactConfidence contracts/tests |
+| RA09 | Advanced/Portable capability truth and secret boundary | PARTIAL modes/vault | strict worker messages, encrypted secret import, mode errors |
+| RA10 |100/1,000/10,000row benchmark/paged UI | NOT BUILT | measured parse/normalize/group/export/commit timing and counts |
+| RA11 | Independent re-administration review | NOT RUN | reviewer findings/disposition, regression verification |
+
+
+## Re-administration verified result (0.4.0)
+
+Historical baseline above is retained. Actual acceptance and pending runtime boundaries: docs/READMINISTRATION_ACCEPTANCE.md.
+
+| ID | Current state | Implementation / executed evidence |
+|---|---|---|
+| RA01 | Implemented | prospecting.ts, csvBridge/csv-worker, ProspectingPanel; original/duplicate headers, mappings, encoding, hashes, browser full export/reload |
+| RA02 | Implemented; installed/live provider acceptance pending | publicResearch, prospectBroker, prospectRunner; grouping/cache/ambiguity/public transport and scoped private provider fixtures |
+| RA03 | Implemented | prospectPolicy consistency at checkpoint/restore/promotion;23integration,22domain tests plus exact source URL/robots tests |
+| RA04 | Implemented for open/unlocked full-tab | prospectActions/Runner/main;11runner,9lineage cases, real encrypted browser processing/reload; no closed-browser promise |
+| RA05 |55 registry +47 enabled manual intake; partial native adapters | sourceMaster/sourceCsv/SourceMasterPanel;55metadata tested, owner-disabled INT-015–022 enforced, raw receipts preserved. Only3plan entries map to partial native adapters |
+| RA06 | Implemented | Company origins, shared Source/Evidence, reciprocal Contact/row references; cross-system integration and browser isolation |
+| RA07 | Implemented local handoff | accepted review/promote; dedup/suppression; CSV-specific EOS exception, existing human exact-content approvals; no sender |
+| RA08 | Implemented separate score contracts | optional supplied Permit Lead Score with conflicting-score rejection; EOS30/25/20/15/10 and A1/A2/B1/B2/C; separately reconciled Contact Confidence |
+| RA09 | Implemented; managed runtime acceptance pending | TS MV3 broker, embedded/self CSV workers, exact sender/job/row/settings checks, encrypted provider handle import, public A/AAAA/robots/size budgets; no real Brave test |
+| RA10 | Measured | docs/prospecting-*-benchmark.json +browser-prospecting-10000-benchmark.json; CPU/crypto100/1000/10,000 repeated/unique and real Chromium10,000 local persistence/export; device/live throughput not measured |
+| RA11 | Reviewed, reproduced findings fixed | three independent reports with final dispositions,161 core tests +16 browserpassed/2 managedskips |

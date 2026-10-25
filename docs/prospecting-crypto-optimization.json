@@ -1,0 +1,352 @@
+{
+  "recordedAt": "2026-10-25T03:57:40.844Z",
+  "beforeRecordedAt": "2026-10-25T03:55:12.901Z",
+  "afterRecordedAt": "2026-10-25T03:57:40.844Z",
+  "runtime": "v24.19.0",
+  "optimization": "Replaced Uint8Array.from(decodedBase64String, callback) with a preallocated Uint8Array and direct charCodeAt loop. AES-GCM/PBKDF2, envelope bytes/format, TLS and integrity verification unchanged; root also added the 64 MB post-decrypt plaintext check.",
+  "scope": "Executed Node synthetic CPU/crypto benchmarks, not browser/IndexedDB/device/live-provider performance. Memory values are process point samples, not peaks or minimum device requirements. Both comparable memoryAfterDecryption samples follow identical full-payload equality and JSON row-count checks. Timing and RSS vary with concurrent cloud load and garbage collection.",
+  "measurements": [
+    {
+      "rows": 100,
+      "mode": "repeated-company",
+      "beforePayloadBytes": 206254,
+      "afterPayloadBytes": 206254,
+      "samePayloadSize": true,
+      "beforeEnvelopeBytes": 275182,
+      "afterEnvelopeBytes": 275182,
+      "beforeCreateVaultIncludingKdfMs": 136.06,
+      "afterCreateVaultIncludingKdfMs": 213.47,
+      "beforeOpenVaultIncludingKdfMs": 183.56,
+      "afterOpenVaultIncludingKdfMs": 391.6,
+      "beforeRoundtripEqual": true,
+      "afterRoundtripEqual": true,
+      "beforeNonextractableKeys": true,
+      "afterNonextractableKeys": true,
+      "beforeMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 8163576,
+          "externalBytes": 2413034,
+          "arrayBufferBytes": 403928,
+          "residentSetBytes": 44019712
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 8382096,
+          "externalBytes": 2820747,
+          "arrayBufferBytes": 410115,
+          "residentSetBytes": 46673920
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 7156608,
+          "externalBytes": 2581342,
+          "arrayBufferBytes": 170726,
+          "residentSetBytes": 52289536
+        }
+      },
+      "afterMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 8148800,
+          "externalBytes": 2413034,
+          "arrayBufferBytes": 403928,
+          "residentSetBytes": 42508288
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 8374304,
+          "externalBytes": 2820747,
+          "arrayBufferBytes": 410115,
+          "residentSetBytes": 45006848
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 9367856,
+          "externalBytes": 3439699,
+          "arrayBufferBytes": 822781,
+          "residentSetBytes": 46555136
+        }
+      }
+    },
+    {
+      "rows": 100,
+      "mode": "unique-company",
+      "beforePayloadBytes": 277746,
+      "afterPayloadBytes": 277746,
+      "samePayloadSize": true,
+      "beforeEnvelopeBytes": 370506,
+      "afterEnvelopeBytes": 370506,
+      "beforeCreateVaultIncludingKdfMs": 128.97,
+      "afterCreateVaultIncludingKdfMs": 130.31,
+      "beforeOpenVaultIncludingKdfMs": 203.36,
+      "afterOpenVaultIncludingKdfMs": 76.69,
+      "beforeRoundtripEqual": true,
+      "afterRoundtripEqual": true,
+      "beforeNonextractableKeys": true,
+      "afterNonextractableKeys": true,
+      "beforeMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 10034672,
+          "externalBytes": 2859088,
+          "arrayBufferBytes": 448472,
+          "residentSetBytes": 58155008
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 16681168,
+          "externalBytes": 3136893,
+          "arrayBufferBytes": 448515,
+          "residentSetBytes": 63528960
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 12525720,
+          "externalBytes": 3692503,
+          "arrayBufferBytes": 448558,
+          "residentSetBytes": 66875392
+        }
+      },
+      "afterMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 9857744,
+          "externalBytes": 3304790,
+          "arrayBufferBytes": 687904,
+          "residentSetBytes": 55173120
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 12307312,
+          "externalBytes": 3582595,
+          "arrayBufferBytes": 687947,
+          "residentSetBytes": 56229888
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 8761664,
+          "externalBytes": 2930682,
+          "arrayBufferBytes": 448542,
+          "residentSetBytes": 56700928
+        }
+      }
+    },
+    {
+      "rows": 1000,
+      "mode": "repeated-company",
+      "beforePayloadBytes": 2055856,
+      "afterPayloadBytes": 2055856,
+      "samePayloadSize": true,
+      "beforeEnvelopeBytes": 2741318,
+      "afterEnvelopeBytes": 2741318,
+      "beforeCreateVaultIncludingKdfMs": 489.22,
+      "afterCreateVaultIncludingKdfMs": 256.9,
+      "beforeOpenVaultIncludingKdfMs": 819.79,
+      "afterOpenVaultIncludingKdfMs": 87.01,
+      "beforeRoundtripEqual": true,
+      "afterRoundtripEqual": true,
+      "beforeNonextractableKeys": true,
+      "afterNonextractableKeys": true,
+      "beforeMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 31410672,
+          "externalBytes": 5470538,
+          "arrayBufferBytes": 2504414,
+          "residentSetBytes": 90484736
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 31763488,
+          "externalBytes": 6486891,
+          "arrayBufferBytes": 2226625,
+          "residentSetBytes": 96788480
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 88092488,
+          "externalBytes": 8542830,
+          "arrayBufferBytes": 2226724,
+          "residentSetBytes": 226074624
+        }
+      },
+      "afterMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 20921336,
+          "externalBytes": 4708749,
+          "arrayBufferBytes": 2226609,
+          "residentSetBytes": 72273920
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 22216352,
+          "externalBytes": 6486891,
+          "arrayBufferBytes": 2226625,
+          "residentSetBytes": 96636928
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 29478160,
+          "externalBytes": 14710505,
+          "arrayBufferBytes": 6338495,
+          "residentSetBytes": 107122688
+        }
+      }
+    },
+    {
+      "rows": 1000,
+      "mode": "unique-company",
+      "beforePayloadBytes": 2807748,
+      "afterPayloadBytes": 2807748,
+      "samePayloadSize": true,
+      "beforeEnvelopeBytes": 3743842,
+      "afterEnvelopeBytes": 3743842,
+      "beforeCreateVaultIncludingKdfMs": 264.3,
+      "afterCreateVaultIncludingKdfMs": 215.93,
+      "beforeOpenVaultIncludingKdfMs": 931.05,
+      "afterOpenVaultIncludingKdfMs": 118.08,
+      "beforeRoundtripEqual": true,
+      "afterRoundtripEqual": true,
+      "beforeNonextractableKeys": true,
+      "afterNonextractableKeys": true,
+      "beforeMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 82739280,
+          "externalBytes": 9340735,
+          "arrayBufferBytes": 3024629,
+          "residentSetBytes": 232132608
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 52080008,
+          "externalBytes": 12102486,
+          "arrayBufferBytes": 2978616,
+          "residentSetBytes": 246550528
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 96551888,
+          "externalBytes": 12854290,
+          "arrayBufferBytes": 2978544,
+          "residentSetBytes": 294940672
+        }
+      },
+      "afterMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 30057776,
+          "externalBytes": 13406394,
+          "arrayBufferBytes": 5034416,
+          "residentSetBytes": 118169600
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 45694152,
+          "externalBytes": 16214201,
+          "arrayBufferBytes": 5034459,
+          "residentSetBytes": 164896768
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 27008240,
+          "externalBytes": 12854290,
+          "arrayBufferBytes": 2978544,
+          "residentSetBytes": 157958144
+        }
+      }
+    },
+    {
+      "rows": 10000,
+      "mode": "repeated-company",
+      "beforePayloadBytes": 20587858,
+      "afterPayloadBytes": 20587858,
+      "samePayloadSize": true,
+      "beforeEnvelopeBytes": 27450654,
+      "afterEnvelopeBytes": 27450654,
+      "beforeCreateVaultIncludingKdfMs": 2463.09,
+      "afterCreateVaultIncludingKdfMs": 1570.96,
+      "beforeOpenVaultIncludingKdfMs": 6764.26,
+      "afterOpenVaultIncludingKdfMs": 475.72,
+      "beforeRoundtripEqual": true,
+      "afterRoundtripEqual": true,
+      "beforeNonextractableKeys": true,
+      "afterNonextractableKeys": true,
+      "beforeMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 192822272,
+          "externalBytes": 30634357,
+          "arrayBufferBytes": 20758611,
+          "residentSetBytes": 359022592
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 164739488,
+          "externalBytes": 46358643,
+          "arrayBufferBytes": 20758627,
+          "residentSetBytes": 392491008
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 709046520,
+          "externalBytes": 66943987,
+          "arrayBufferBytes": 20758654,
+          "residentSetBytes": 994029568
+        }
+      },
+      "afterMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 90439512,
+          "externalBytes": 30634357,
+          "arrayBufferBytes": 20758611,
+          "residentSetBytes": 316559360
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 165212104,
+          "externalBytes": 46358643,
+          "arrayBufferBytes": 20758627,
+          "residentSetBytes": 388972544
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 118832680,
+          "externalBytes": 108122335,
+          "arrayBufferBytes": 170726,
+          "residentSetBytes": 428003328
+        }
+      }
+    },
+    {
+      "rows": 10000,
+      "mode": "unique-company",
+      "beforePayloadBytes": 28422750,
+      "afterPayloadBytes": 28422750,
+      "samePayloadSize": true,
+      "beforeEnvelopeBytes": 37897178,
+      "afterEnvelopeBytes": 37897178,
+      "beforeCreateVaultIncludingKdfMs": 1768.9,
+      "afterCreateVaultIncludingKdfMs": 1926.61,
+      "beforeOpenVaultIncludingKdfMs": 7952.56,
+      "afterOpenVaultIncludingKdfMs": 535.59,
+      "beforeRoundtripEqual": true,
+      "afterRoundtripEqual": true,
+      "beforeNonextractableKeys": true,
+      "afterNonextractableKeys": true,
+      "beforeMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 244662024,
+          "externalBytes": 102229431,
+          "arrayBufferBytes": 56044130,
+          "residentSetBytes": 559947776
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 210357424,
+          "externalBytes": 82613816,
+          "arrayBufferBytes": 28593575,
+          "residentSetBytes": 565714944
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 149733624,
+          "externalBytes": 87640883,
+          "arrayBufferBytes": 28593546,
+          "residentSetBytes": 499073024
+        }
+      },
+      "afterMemorySamples": {
+        "memoryBeforeCrypto": {
+          "heapUsedBytes": 210923520,
+          "externalBytes": 74781302,
+          "arrayBufferBytes": 28593476,
+          "residentSetBytes": 503447552
+        },
+        "memoryAfterEncryption": {
+          "heapUsedBytes": 149068592,
+          "externalBytes": 59220632,
+          "arrayBufferBytes": 28593504,
+          "residentSetBytes": 527261696
+        },
+        "memoryAfterDecryption": {
+          "heapUsedBytes": 121504800,
+          "externalBytes": 87640915,
+          "arrayBufferBytes": 170726,
+          "residentSetBytes": 444166144
+        }
+      }
+    }
+  ]
+}

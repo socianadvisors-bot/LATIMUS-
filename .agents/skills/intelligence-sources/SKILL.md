@@ -16,3 +16,7 @@ Support connected APIs, approved browser retrieval, downloadable/imported datase
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Use src/domain/sourceMaster.ts INTEL_SOURCES as the single55-source plan registry. Native adapter receipts and authorized source CSV imports are separate modes. Keep INT-015–INT-022 disabled by owner; other unsupported adapters stay manual/credential-required. Never equate a registry/import receipt with live coverage.

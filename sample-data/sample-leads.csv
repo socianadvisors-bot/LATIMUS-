@@ -1,0 +1,5 @@
+Business,Owner,Title,Address,City,State,ZIP,Telephone,Website,LinkedIn,Notes,Custom Reference
+Example Roofing LLC,Robert Example,Owner,"100 Demo St",Dallas,TX,75000,,https://example.com,,"Fictional sample; example.com is a reserved demonstration domain",SAMPLE-001
+Example HVAC,Jane Example,President,"200 Sample Ave",Austin,TX,75000,,,,"Fictional sample; website requires company resolution",SAMPLE-002
+Example Logistics LLC,Alex Example,COO,"300 Example Rd",Fort Worth,TX,75000,,https://example.org,,"Fictional sample; no public individual email is promised",SAMPLE-003
+Example Roofing LLC,Robin Example,Operations Manager,"100 Demo St",Dallas,TX,75000,,https://example.com,,"Same fictional company; company research should be reused",SAMPLE-004

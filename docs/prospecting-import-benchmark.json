@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-10-25T03:58:20.155Z",
+  "runtime": "v24.19.0",
+  "scope": "Node import action, company linking and full workspace schema validation only; no browser, network, encryption, storage or device claim.",
+  "rows": 10000,
+  "companies": 10000,
+  "elapsedMs": 2445.408477,
+  "serializedBytes": 9577943
+}

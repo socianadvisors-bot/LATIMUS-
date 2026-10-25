@@ -56,3 +56,22 @@ Only local tools and assisted manual handoff operate in this version. No live so
 - USAspending's default time filter can include old contracts with recent activity. Use documented new_awards_only so base transaction dates fall in the requested window.
 - TDLR's public search POST is verified; preserve registration/work/status semantics. FMCSA first pull is a baseline; compare only comparable dated reported-unit snapshots, without inferring authority issuance or verified expansion.
 - No Chromium certificate bypass is allowed. Existing platform CA import did not resolve its TLS error, so distinguish native API acceptance from unverified browser-live distribution behavior.
+
+## In-place re-administration checkpoint and authority
+
+The owner explicitly supplied MASTER_READMINISTRATION_PROMPT as the controlling additive expansion directive. Preserve current verified source/API/encryption/CRM/report code; no Electron code/dependencies were added. The standalone prospect-enricher specification is translated into MV3/shared TypeScript/IndexedDB/encrypted portable-workspace mechanisms. Existing React is retained for cohesive reuse; no separate app/database is introduced.
+
+Before expansion, production build/typecheck,61 core tests and11 browser workflows passed;2 managed-policy targets skipped. Local Git checkpoint `checkpoint/pre-readministration-a5ea7ea` preserves the pushed a5ea7ea baseline. Existing live evidence for4official native API adapters remains valid; browser source TLS/extension acceptance remains unverified.
+
+The full55 registry retains all source IDs and metadata. The earlier property-only activation deferral is preserved pending the owner's answer; this does not omit those registry rows. CSV import is an explicit owner research instruction and bypasses no source/permission/suppression controls; it does not require intelligence EOS. CSV and signal intake provenance remain distinct and scores cannot substitute for one another.
+
+
+## 2026-10-25 — Re-administration verified implementation
+
+- CSV originals/mappings/results/jobs/cache share the encrypted workspace and CAS queue; additive schema1 defaults migrate without resetting data. IndexedDB2 adds private provider/handle stores.
+- Native Advanced broker reads owner key files, encrypts secrets, issues job/row/settings-scoped capabilities and revalidates persisted authority. No arbitrary fetch or key-return command exists. Company-site permissions are optional and requested explicitly by exact root/www origins. Public DNS preflight is best effort, never advertised as IP pinning.
+- Local checkpoints are500 rows. Public company research is grouped and cached; failed zero-page responses do not poison the cache. Mapping changes cancel prior work/cursors. Lock/restore/background-unlock generations fail closed.
+- Measurements showed20–28MB enriched10kpayloads: vault64 MiB plaintext/96 MiB restore capacity replaces16/24. Decoder allocation was optimized after actual large-payload latency/RSS evidence, retaining format/bytes/encryption.
+- Eight property-only sources remain disabled by explicit owner reply. Other registry rows support authorized file intake; partial native adapters are marked honestly. Raw source receipts survive native refreshes.
+- Supplied Permit Lead Score is preserved independently, with conflicting score rejection. No undocumented placement formula is invented. EOS and Contact Confidence retain their separate logic and thresholds.
+- Browser fixtures and native API evidence are distinct. No actual installed Advanced/Brave success is claimed while cloud policy/credentials prevent it; no TLS verification bypass.

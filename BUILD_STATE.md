@@ -1,8 +1,8 @@
 # LATIMUS build state
 
-Updated October 24, 2026 (America/Chicago). Version: **0.3.0 integrated alpha (source acceptance unfinished)**.
+Updated October 25, 2026 (UTC). Version: **0.4.0 integrated alpha — CSV Prospecting +55-source registry/import expansion**.
 
-This is a greenfield implementation in the selected `socianadvisors-bot/LATIMUS-` checkout. The uploaded pack supplies the controlling product specifications and original coverage baseline. LATIMUS remains independent of THE CONSULT FORWARD. No deployment or push has been performed.
+This continues the existing implementation in the selected `socianadvisors-bot/LATIMUS-` checkout. The uploaded pack supplies the controlling product specifications and original coverage baseline. LATIMUS remains independent of THE CONSULT FORWARD. Earlier verified commits were pushed to latimus-v0.1 with owner authorization. This expansion preserves that history; no hosted deployment is needed.
 
 ## Implemented vertical slice
 

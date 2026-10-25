@@ -16,3 +16,7 @@ Do not dump raw signals into CRM. Require qualification, deduplication, POC/cont
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+CSV prospects require accepted row review and explicit promotion, with reciprocal row/contact/company references. Deduplicate safely; shared names/domains that conflict require review. Supplied addresses stay user-provided, generic addresses never become verified individuals. No automatic external sends.

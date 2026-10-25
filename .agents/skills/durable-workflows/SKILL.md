@@ -16,3 +16,7 @@ Implement stable jobs, dependencies, checkpoints, leases, retries, dead-letter h
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Prospect jobs share the encrypted mutation/CAS foundation. Persist selected/completed row cursors, chunk local writes, group company requests and cancel capabilities immediately on abort. Retry unfinished/errors; do not cache zero-page failures. Remapping invalidates prior jobs/cursors. Open/unlocked execution is distinct from closed-browser durability.

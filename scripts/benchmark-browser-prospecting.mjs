@@ -1,0 +1,36 @@
+import {chromium} from '@playwright/test';
+import {writeFile,mkdir,readFile} from 'node:fs/promises';
+import {performance} from 'node:perf_hooks';
+import {createHash} from 'node:crypto';
+const base=process.argv[2]||'http://127.0.0.1:5173';
+const artifact=await readFile('dist/LATIMUS.html','utf8');const benchmarkUrl=base+'/benchmark-built-ui';
+const total=10000;const password='fictional browser benchmark passphrase 123';
+const csv='Company,Person,Website,Email,Original note\r\n'+Array.from({length:total},(_,i)=>`Fictional Browser Company ${Math.floor(i/100)},Fictional Person ${i},https://fixture-${Math.floor(i/100)}.example.com,,Immutable original row ${i}`).join('\r\n')+'\r\n';
+const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
+const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});const page=await context.newPage();page.setDefaultTimeout(180000);
+const errors=[],providerRequests=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith(base))providerRequests.push(r.url());});
+const times={};const elapsed=async(name,operation)=>{console.log('Starting '+name);const start=performance.now();await operation();times[name]=Math.round((performance.now()-start)*100)/100;console.log('Completed '+name+': '+times[name]+' ms');};
+const nav=async name=>page.getByRole('navigation',{name:'Main navigation'}).getByRole('button',{name,exact:true}).click();
+try{
+ await page.route('**/benchmark-built-ui',route=>route.fulfill({status:200,contentType:'text/html',body:artifact}));
+ await elapsed('createEncryptedWorkspaceMs',async()=>{await page.goto(benchmarkUrl);await page.getByLabel('Passphrase',{exact:true}).fill(password);await page.getByLabel('Confirm passphrase',{exact:true}).fill(password);await page.getByRole('button',{name:'Create encrypted workspace'}).click();await page.getByRole('heading',{name:'Command Center',exact:true}).waitFor();});
+ await nav('Prospecting');
+ await elapsed('fileDecodeWorkerParseMappingMs',async()=>{await page.getByLabel('Import prospect CSV',{exact:true}).setInputFiles({name:'fictional-browser-10000.csv',mimeType:'text/csv',buffer:Buffer.from(csv)});await page.getByRole('button',{name:'Confirm mapping & import'}).waitFor();});
+ await elapsed('importNormalizeValidateEncryptPersistRenderMs',async()=>{await page.getByRole('button',{name:'Confirm mapping & import'}).click();await page.getByLabel('Search prospects',{exact:true}).waitFor();});
+ const visibleRows=await page.locator('.prospect-results-table tbody tr').count();if(visibleRows!==100)throw new Error(`Expected a paged100-row DOM, observed${visibleRows}`);
+ await page.getByRole('tab',{name:'Enrichment Jobs',exact:true}).click();
+ await elapsed('localProcessCheckpointEncryptPersistMs',async()=>{await page.getByRole('button',{name:'Start local processing',exact:true}).click();await page.getByText('completed',{exact:true}).waitFor();await page.getByText('10,000 / 10,000 rows checkpointed',{exact:false}).waitFor();});
+ await page.getByRole('button',{name:'Inspect current results',exact:true}).click();await page.getByRole('button',{name:'Next prospect page',exact:true}).click();
+ const secondPage=await page.locator('.prospect-pagination').innerText();if(!secondPage.includes('101–200'))throw new Error('Paged row cursor was not advanced');
+ await elapsed('reloadUnlockRetain10000Ms',async()=>{await page.reload();await page.getByLabel('Passphrase',{exact:true}).fill(password);await page.getByRole('button',{name:'Unlock workspace',exact:true}).click();await page.getByRole('heading',{name:'Command Center',exact:true}).waitFor();await nav('Prospecting');await page.getByRole('tab',{name:'Prospect Results',exact:true}).click();await page.getByLabel('Search prospects',{exact:true}).waitFor();});
+ await page.getByRole('tab',{name:'Export Center',exact:true}).click();let exported='';
+ await elapsed('fullFidelityExportDownloadMs',async()=>{const pending=page.waitForEvent('download');await page.getByRole('button',{name:'Export Full Fidelity CSV',exact:true}).click();const file=await pending;exported=await readFile(await file.path(),'utf8');});
+ const rowIds=(exported.match(/Immutable original row \d+/g)||[]);if(rowIds.length!==total)throw new Error(`Expected${total} preserved original notes, found${rowIds.length}`);if(!exported.includes('Immutable original row 9999'))throw new Error('Last original row missing');
+ const inputHeader='Company,Person,Website,Email,Original note,';if(!exported.replace(/^\uFEFF/,'').startsWith(inputHeader))throw new Error('Original header order not preserved');
+ if(providerRequests.length)throw new Error('Unexpected provider/public HTTP in local-only benchmark');if(errors.length)throw new Error('Browser errors: '+errors.join(' | '));
+ const storage=await page.evaluate(async()=>new Promise((resolve,reject)=>{const req=indexedDB.open('latimus-vault-v1');req.onsuccess=()=>{const db=req.result;const r=db.transaction('vault').objectStore('vault').get('active');r.onsuccess=()=>{const serialized=JSON.stringify(r.result);resolve({schema:db.version,encryptedBytes:new TextEncoder().encode(serialized).byteLength,containsRawName:serialized.includes('Fictional Browser Company')});db.close();};r.onerror=()=>reject(r.error);};}));
+ if(storage.containsRawName)throw new Error('Plaintext company data appeared in persistent encrypted envelope');
+ const browserMemory=await page.evaluate(()=>{const m=performance.memory;return m?{usedJSHeapSize:m.usedJSHeapSize,totalJSHeapSize:m.totalJSHeapSize,jsHeapSizeLimit:m.jsHeapSizeLimit}:null;});
+ const result={artifactSha256:createHash('sha256').update(artifact).digest('hex'),browserMemory,browserMemoryScope:'Single Chromium-reported heap sample after export; not peak memory, browser-process RSS, or a cross-device capacity claim.',recordedAt:new Date().toISOString(),scope:'Actual Chromium built application served over local HTTP (no hot reload), embedded Web Worker import, 100 repeated-company groups, local-only processing, AES-GCM IndexedDB persistence, reload/unlock and full-fidelity export. No live enrichment, provider, OS/device acceptance or throughput extrapolation.',rows:total,companyGroups:100,originalColumns:5,visiblePagedDomRows:visibleRows,exportOriginalRows:rowIds.length,exportBytes:Buffer.byteLength(exported),providerHttpRequests:providerRequests.length,browserErrors:errors,storage,timingsMs:times};
+ await mkdir('docs',{recursive:true});await writeFile('docs/browser-prospecting-10000-benchmark.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));
+}catch(error){await page.screenshot({path:'/tmp/latimus-browser-benchmark-failure.png',fullPage:true}).catch(()=>{});console.error('Benchmark failed at URL '+page.url()+': '+(error instanceof Error?error.message:String(error)));throw error;}finally{await context.close();await browser.close();}

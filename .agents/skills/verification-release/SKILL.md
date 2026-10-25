@@ -16,3 +16,7 @@ Maintain unit/integration/UI/extension/offline/recovery/security/evaluation fixt
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Use prospect domain/integration/broker/runner/lineage/public-transport tests and browser import→review→CRM→export/reload fixtures. Run100/1000/10000 repeated/unique benchmarks with explicit CPU/crypto/browser/network scope. Preserve managed file/extension skips; fixture success is not a live Brave test. Require independent findings and dispositions in docs.

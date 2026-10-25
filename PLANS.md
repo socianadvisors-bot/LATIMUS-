@@ -22,3 +22,20 @@ This file is the roadmap. Detailed implementation/acceptance instructions live i
 - Update context/build-log/traceability continuously.
 - When context becomes large, externalize findings to harness files instead of restating the complete product directive.
 - Never change the two-system separation contract as a convenience refactor.
+
+## Additive integration tracks — current re-administration
+
+Preserve original phase numbering/evidence. Retrofit via backward-compatible migrations and complete vertical slices:
+
+- A — Prospecting Core: CSV import/mapping/raw-column preservation/history/durable jobs/company linkage.
+- B — Prospect Enrichment: resolution/company-first cache/public research/provider/extraction/evidence/contact confidence/review/export.
+- C — 55-Source Expansion: master-plan metadata/deployment tiers/adapters or imports/health/cadence, distinct from prospect intake.
+- D — Unified Commercial Handoff: shared Company/Contact360, explicit CRM promotion, suppression/approvals, origin retained.
+- E — Cohesive UX/Performance: Prospecting, Job Center, evidence details, paged grids, benchmarks and independent hardening.
+
+Active execution plans: `harness/build/integration-prospecting.md` and `harness/build/integration-source-intelligence.md`. The initial slice is CSV→mapping→normalize→encrypted persistence→review/export; extend with approved public research and source support without treating registry rows as connections.
+
+
+## 0.4integration checkpoint
+
+TracksA–E now have complete native vertical slices and executed evidence in docs/READMINISTRATION_ACCEPTANCE.md. Preserve161 coretest/16 browserpass evidence and the2 managed-policy skips. Continue actual unmanaged Advanced acceptance and source-by-source live deployment before calling all expansion or original phases complete. Property-only feeds remain disabled. No phase renumbering/reset.

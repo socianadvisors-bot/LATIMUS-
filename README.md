@@ -1,14 +1,24 @@
 # LATIMUS · Cross-Sector Executive Intelligence
 
-A local-first Executive Office for THE CONSULT. **Version 0.3.0 is a working integrated alpha**, not completion of the entire master directive. It runs without a hosted backend, paid service, AI provider, or FORWARD installation.
+A local-first Executive Office for THE CONSULT. **Version 0.4.0 is a working integrated alpha**, not completion of the entire master directive. It runs without a hosted backend, paid service, AI provider, or FORWARD installation.
 
 ## Use the built app
 
+For GitHub downloads, choose **Code → Download ZIP**, extract it, and open the **deliverables/** folder. It contains the portable HTML, extension ZIP and complete build ZIP. The dist/ paths below are generated development outputs; identical ready-to-use artifacts are copied into deliverables/.
+
 **Portable:** Open `dist/LATIMUS.html` in a current desktop Chrome browser. All code and styles are bundled; there are no CDN or network dependencies. Create a workspace with a passphrase of at least 12 characters. Optionally include explicitly fictional demonstration records. In file mode, **Export workspace before closing**—file mode does not silently write a file or use browser persistence. Keep the HTML, encrypted workspace JSON and your passphrase. To resume, open the HTML and choose **Restore encrypted file**.
 
-**Extension:** Unzip `dist/LATIMUS-extension.zip`. Open Chrome's extension management, enable developer mode, choose **Load unpacked** and select the extracted folder containing `manifest.json`. Click LATIMUS to open a full-tab workspace. Browser mode stores only encrypted ciphertext in IndexedDB. Uninstalling the extension or clearing browser data can remove that vault; export backups. The bundled public manifest key gives the unpacked extension a stable identity. No content-script, browsing-history or broad tabs permissions are requested. Version 0.2 adds opt-in access to exactly api.usaspending.gov, data.austintexas.gov, api.census.gov, www.tdlr.texas.gov and data.transportation.gov; each extension source pull requests its own host permission.
+**Extension:** Unzip `dist/LATIMUS-extension.zip`. Open Chrome's extension management, enable developer mode, choose **Load unpacked** and select the extracted folder containing `manifest.json`. Click LATIMUS to open a full-tab workspace. Browser mode stores only encrypted ciphertext in IndexedDB. Uninstalling the extension or clearing browser data can remove that vault; export backups. The bundled public manifest key gives the unpacked extension a stable identity. No content-script, browsing-history or broad tabs permissions are requested. Native source pulls request their official origin. CSV prospect research declares optional HTTPS access because company domains come from your files; starting selected research requests exact company/root-www grants plus public DNS safety checks. Brave is an optional private background search provider. Nothing is granted automatically.
 
 Cloud Chromium blocks local-file URLs and unpacked extensions through managed policies. The built HTML's exact bundle, portable adapter and offline behavior are tested through an HTTP test fixture. Direct file and extension acceptance must be completed on an unmanaged target desktop; see `docs/ACCEPTANCE.md`.
+
+## CSV Prospecting and the source master
+
+**Prospecting** starts with your CSV. Import → confirm or override mapping → normalize → start processing/research → inspect evidence and contact confidence → accept selected rows → explicitly promote to CRM or export. Every original source column is retained, including duplicate headers and unmapped fields. Original values are never overwritten by public research. See [Prospecting guide](docs/PROSPECTING.md).
+
+Portable Core performs local import/review/export and can inspect research included in an encrypted backup. Fresh website research requires Advanced Mode. Supplied company websites work without a search subscription; missing websites can be resolved through an optional Brave key imported securely from a local file in Provider Settings. No key is bundled. Search candidates require explicit company-domain permission before page research; re-run selected rows after approving it.
+
+The **55-source master** lives in Sources with deployment priorities, metadata, current support and CSV receipts. Property-only INT-015–INT-022 remain disabled. Existing TDLR, USAspending and FMCSA adapters cover parts of three plan entries; Austin and Census are supplemental. Other active sources support authorized source-file intake, not automatic portal scraping. Source receipts never silently create prospect batches, signals, CRM contacts or scored opportunities. See [coverage and limitations](docs/55_SOURCE_COVERAGE.md).
 
 ## A useful first workflow
 

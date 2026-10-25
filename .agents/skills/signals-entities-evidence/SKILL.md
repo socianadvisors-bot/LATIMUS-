@@ -16,3 +16,7 @@ Support the eight signal families and required triggers. Preserve event/publicat
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Prospect public pages join the shared Source/Evidence spine as unreviewed Tier B observations, with actual URL/hash and blank unknown event/publication dates. Preserve exact www source authority independently from normalized company domains. Validate reciprocal contact/row/company lineage.

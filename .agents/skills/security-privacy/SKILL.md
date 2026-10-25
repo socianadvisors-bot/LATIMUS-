@@ -16,3 +16,7 @@ Use restrictive CSP, safe rendering, validated sender/action/payload scope, narr
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Validate exact extension sender, schema and batch/row capability; recheck current persisted job, settings and normalized clues. Keys are read only by the background through expiring file handles, never renderer inputs/exports/logs. Bound response streams before allocation; check A/AAAA public DNS, robots on actual redirect authority, source size/type and cookie-free HTTPS. DNS preflight is not IP pinning.

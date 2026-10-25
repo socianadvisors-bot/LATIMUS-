@@ -10,7 +10,7 @@ const text = z.string().trim().min(1).max(300);
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use YYYY-MM-DD dates').refine(value=>!Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0,10)===value,'Invalid calendar date');
 const httpsReference = z.string().trim().max(2048).url().refine(value=>{const u=new URL(value);return u.protocol==='https:' && !u.username && !u.password},'Evidence references must use HTTPS without embedded credentials');
 export const eosSchema = z.object({trigger:z.number().int().min(0).max(30),need:z.number().int().min(0).max(25),capacity:z.number().int().min(0).max(20),fit:z.number().int().min(0).max(15),access:z.number().int().min(0).max(10)}).strict();
-export const signalInputSchema = z.object({companyName:text,domain:z.string().trim().max(253),title:text,family:z.enum(SIGNAL_FAMILIES),trigger:text,eventId:z.string().trim().max(300),eventDate:day,publishedAt:day,geography:text,sectors:z.array(z.enum(SECTORS)).min(1).max(7),sourceId:z.string().trim().min(1).max(100),reference:httpsReference,excerpt:z.string().trim().min(5).max(20000),need:text,components:eosSchema}).strict();
+export const signalInputSchema = z.object({companyName:text,domain:z.string().trim().max(253),title:text,family:z.enum(SIGNAL_FAMILIES),trigger:text,eventId:z.string().trim().max(300),eventDate:day,publishedAt:day,geography:text,sectors:z.array(z.enum(SECTORS)).min(1).max(7),sourceId:z.string().trim().min(1).max(100),reference:httpsReference,excerpt:z.string().trim().min(5).max(20000),need:text,components:eosSchema,permitLeadScore:z.number().int().min(0).max(100).optional()}).strict();
 
 export function normalizeCompanyName(name:string):string {
   const normalized = name.normalize('NFKC').toLocaleLowerCase('en-US').replace(/&/g,' and ').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
@@ -28,7 +28,7 @@ export function fingerprintSignal(company:string,trigger:string,eventId:string,e
 export function scoreEOS(components:EOSComponents):number {const c=eosSchema.parse(components);return c.trigger+c.need+c.capacity+c.fit+c.access}
 export function actionBand(score:number):string {
   if(!Number.isInteger(score)||score<0||score>100)throw new Error('EOS must be an integer from 0 to 100');
-  return score>=90?'Immediate Executive Pursuit':score>=75?'High-Priority Personalized Campaign':score>=65?'Qualified Outreach':score>=50?'Monitor / Nurture':'Intelligence Database Only';
+  return score>=90?'A1 · Immediate Executive Pursuit':score>=75?'A2 · High-Priority Personalized Campaign':score>=65?'B1 · Qualified Outreach':score>=50?'B2 · Monitor / Nurture':'C · Intelligence Database Only';
 }
 export function qualificationGate(w:Workspace,s:Signal,now=Date.now()):{eligible:boolean;reasons:string[]} {
   const reasons:string[]=[];
@@ -67,15 +67,17 @@ export async function ingestSignal(workspace:Workspace,input:SignalInput,now=new
   if(candidates.length>1)throw new Error('Ambiguous company identity; resolve aliases before importing');
   let company=candidates[0];
   if(company&&company.domain&&domain&&company.domain!==domain)throw new Error('Company name matches but domains conflict; human identity review required');
-  if(!company){company={id:crypto.randomUUID(),name:p.companyName,normalizedName:normalized,domain,geography:p.geography,sectors:[...new Set(p.sectors)],aliases:[]};w.companies.push(company)}
+  if(!company){company={id:crypto.randomUUID(),name:p.companyName,normalizedName:normalized,domain,geography:p.geography,sectors:[...new Set(p.sectors)],aliases:[],origins:['intelligence_signal']};w.companies.push(company)}
   else {if(company.geography.toLowerCase()!==p.geography.toLowerCase()&&!domain)throw new Error('Same company name in another geography requires a domain for identity review');company.sectors=[...new Set([...company.sectors,...p.sectors])];if(!company.domain&&domain)company.domain=domain}
+  company.origins=[...new Set([...(company.origins||[]),'intelligence_signal'] as const)];
   const hash=await digest(JSON.stringify({sourceId:p.sourceId,reference:p.reference,excerpt:p.excerpt,eventDate:p.eventDate,publishedAt:p.publishedAt}));
   let evidence=w.evidence.find(e=>e.hash===hash);
   if(!evidence){evidence={id:crypto.randomUUID(),sourceId:p.sourceId,reference:p.reference,excerpt:p.excerpt,tier:source.tier,eventDate:p.eventDate,publishedAt:p.publishedAt,discoveredAt:now,importedAt:now,observed:true,hash,review:'unreviewed'};w.evidence.push(evidence)}
   const fingerprint=fingerprintSignal(company.normalizedName,p.trigger,p.eventId,p.eventDate);
   let signal=w.signals.find(s=>s.fingerprint===fingerprint&&s.companyId===company.id);
   if(signal){signal.evidenceIds=[...new Set([...signal.evidenceIds,evidence.id])];signal.sectors=[...new Set([...signal.sectors,...p.sectors])]}
-  else {signal={id:crypto.randomUUID(),companyId:company.id,title:p.title,family:p.family,trigger:p.trigger,eventId:p.eventId,eventDate:p.eventDate,geography:p.geography,sectors:[...new Set(p.sectors)],evidenceIds:[evidence.id],fingerprint,need:p.need,components:p.components,score:scoreEOS(p.components),scoreVersion:EOS_VERSION,createdAt:now};w.signals.push(signal)}
+  else {signal={id:crypto.randomUUID(),companyId:company.id,title:p.title,family:p.family,trigger:p.trigger,eventId:p.eventId,eventDate:p.eventDate,geography:p.geography,sectors:[...new Set(p.sectors)],evidenceIds:[evidence.id],fingerprint,need:p.need,components:p.components,score:scoreEOS(p.components),scoreVersion:EOS_VERSION,createdAt:now,permitLeadScore:p.permitLeadScore};w.signals.push(signal)}
+  if(p.permitLeadScore!==undefined){if(signal.permitLeadScore!==undefined&&signal.permitLeadScore!==p.permitLeadScore)throw new Error('Conflicting Permit Lead Scores require review; preserve the existing placement score.');signal.permitLeadScore=p.permitLeadScore;}
   const importedSource=w.sources.find(s=>s.id===p.sourceId)!;importedSource.health='imported';importedSource.lastImport=now;
   return w;
 }

@@ -1,0 +1,32 @@
+{
+  "artifactSha256": "900f9904af226d3e6bd85d2718a513f1f4fb24e37c06d6a7d5b4cac6ee3e1be4",
+  "browserMemory": {
+    "usedJSHeapSize": 168346633,
+    "totalJSHeapSize": 327784569,
+    "jsHeapSizeLimit": 4395630592
+  },
+  "browserMemoryScope": "Single Chromium-reported heap sample after export; not peak memory, browser-process RSS, or a cross-device capacity claim.",
+  "recordedAt": "2026-10-25T03:57:29.769Z",
+  "scope": "Actual Chromium built application served over local HTTP (no hot reload), embedded Web Worker import, 100 repeated-company groups, local-only processing, AES-GCM IndexedDB persistence, reload/unlock and full-fidelity export. No live enrichment, provider, OS/device acceptance or throughput extrapolation.",
+  "rows": 10000,
+  "companyGroups": 100,
+  "originalColumns": 5,
+  "visiblePagedDomRows": 100,
+  "exportOriginalRows": 10000,
+  "exportBytes": 4733238,
+  "providerHttpRequests": 0,
+  "browserErrors": [],
+  "storage": {
+    "schema": 2,
+    "encryptedBytes": 19569746,
+    "containsRawName": false
+  },
+  "timingsMs": {
+    "createEncryptedWorkspaceMs": 1198.6,
+    "fileDecodeWorkerParseMappingMs": 701.3,
+    "importNormalizeValidateEncryptPersistRenderMs": 1641.65,
+    "localProcessCheckpointEncryptPersistMs": 27660.54,
+    "reloadUnlockRetain10000Ms": 2346.5,
+    "fullFidelityExportDownloadMs": 2141.13
+  }
+}

@@ -69,3 +69,9 @@ Use focused skills from `.agents/skills/` when applicable.
 
 ## Completion standard
 A phase is not complete because code was generated. It requires implementation, tests/evaluations, evidence, traceability updates, limitations, and independent review when required.
+
+## Controlling additive re-administration
+
+Read `MASTER_READMINISTRATION_PROMPT.md` before expansion work. It translates the new 55-source plan and Local Prospect Enricher behavior into the existing shared browser core. Do not introduce Electron, SQLite services, a second application, or a hosted backend. Preserve the original directive and verified work. The new focused skills are `prospect-csv-ingestion`, `prospect-enrichment`, `intelligence-source-deployment`, and `premium-workspace-ui`.
+
+Prospecting is CSV-first: source/signal records must never silently enter its import queue. Shared Company/Contact/Evidence records preserve `csv_prospect` versus `intelligence_signal` provenance. CSV-selected contact research does not require EOS; intelligence-generated POC research retains EOS65/evidence gates. Permit Lead Score, EOS, and Prospect Contact Confidence are distinct. Provider secrets belong only in the trusted encrypted background adapter, never DOM/logs/exports. All 55 registry entries retain truthful per-source support/deployment status; a registry is not a tested adapter.

@@ -16,3 +16,7 @@ Implement the 100-point EOS with versioned component scores and action bands, se
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Keep Permit Lead Score, EOS and Prospect Contact Confidence independent. Preserve supplied placement scores without inventing a formula. EOS bands are A1/A2/B1/B2/C; intelligence POC gate stays65. Explicit owner CSV selection bypasses only that EOS requirement, not contact evidence or suppression.

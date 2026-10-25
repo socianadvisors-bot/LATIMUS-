@@ -14,7 +14,7 @@ async function addSource(page:Page,name:string){await nav(page,'Sources');await 
 test('encrypted records, local report execution, lock, wrong password and reload',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await create(page);
  await page.screenshot({path:'test-results/command-center.png',fullPage:true});
- const stored=await page.evaluate(async()=>new Promise<string>((resolve,reject)=>{const r=indexedDB.open('latimus-vault-v1',1);r.onsuccess=()=>{const g=r.result.transaction('vault').objectStore('vault').get('active');g.onsuccess=()=>{resolve(JSON.stringify(g.result));r.result.close();};g.onerror=()=>reject(g.error);};}));
+ const stored=await page.evaluate(async()=>new Promise<string>((resolve,reject)=>{const r=indexedDB.open('latimus-vault-v1');r.onsuccess=()=>{const g=r.result.transaction('vault').objectStore('vault').get('active');g.onsuccess=()=>{resolve(JSON.stringify(g.result));r.result.close();};g.onerror=()=>reject(g.error);};}));
  expect(stored).not.toContain('Cedarline');expect(stored).toContain('PBKDF2-SHA256');
  await nav(page,'Reports');await page.getByRole('button',{name:'Queue executive brief'}).click();await expect(page.getByText('succeeded',{exact:true})).toBeVisible();await page.getByRole('button',{name:/^Executive Brief ·/}).click();await expect(page.locator('.report-preview')).toContainText('ILLUSTRATIVE');
  await page.getByRole('button',{name:'Lock workspace',exact:true}).click();await page.getByLabel('Passphrase',{exact:true}).fill('incorrect passphrase');await page.getByRole('button',{name:'Unlock workspace'}).click();await expect(page.getByRole('alert')).toContainText('wrong passphrase');

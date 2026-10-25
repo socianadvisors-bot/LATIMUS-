@@ -1,3 +1,15 @@
+# Current next actions after in-place re-administration
+
+The native CSV Prospecting and55-source registry/import slices are implemented and tested. Preserve them and prior evidence. Read MASTER_READMINISTRATION_PROMPT.md, docs/READMINISTRATION_ACCEPTANCE.md and the three independent review reports before further expansion.
+
+1. Complete actual unmanaged-desktop Advanced Mode acceptance: toolbar/full-tab, optional company permissions, background key-file import with an owner-held Brave key, actual supplied-site and missing-site research, lock/reload. Cloud policy blocks unpacked extensions and direct file URLs; do not bypass it or turn fixtures into live evidence.
+2. Continue source deployment by the 55-source plan tiers. Three plan entries have partial native coverage (TDLR, USAspending, FMCSA); Austin/Census are supplemental. Other active entries accept authorized source CSV receipts. Build and verify each next adapter against its real terms/schema/authentication before changing support status. Property-only INT-015–INT-022 remain disabled by owner.
+3. Complete any broader original LATIMUS commercial/delivery/sector phases still open in PLANS.md. Do not call the full master product complete because these slices pass. No separate app, Electron fork or backend.
+4. Extend external person research, source-specific trigger extraction and source-to-result attribution only with evidence and explicit privacy/permission boundaries. Unknown metrics stay unknown. Maintain separate Permit Lead Score, EOS and Contact Confidence.
+5. Broaden device/OS and quota/interruption testing where testable. Current Node CPU/crypto and Chromium10,000-row local persistence results are scoped in docs; Chromebook hardware and live network throughput were not measured.
+
+Existing verified work remains below for historical context; current acceptance status is in docs/READMINISTRATION_ACCEPTANCE.md.
+
 # Next actions
 
 The product directive remains the full destination; 0.1.0 is an integrated alpha.

@@ -1,0 +1,68 @@
+import {normalizeDomain,normalizeURL,parsePublicCompanyPage,scoreCompanyAssociation,normalizeCompany,normalizePhone,normalizeEmail} from '../domain/prospecting';
+import type {CompanyResearch,NormalizedProspect,ProspectSettings} from '../domain/prospectTypes';
+import {sha256} from './crypto';
+export interface SearchHit {url:string;title:string;description:string}
+export interface ResearchDependencies {fetcher:typeof fetch;allowOrigin:(url:string)=>Promise<boolean>;search?:(query:string,signal:AbortSignal)=>Promise<SearchHit[]>}
+const BLOCKED=new Set(['linkedin.com','facebook.com','instagram.com','tiktok.com','twitter.com','x.com','youtube.com','yelp.com','zoominfo.com','apollo.io','rocketreach.co','crunchbase.com','google.com','bing.com','search.brave.com']);
+const FREEMAIL=new Set(['gmail.com','googlemail.com','outlook.com','hotmail.com','live.com','yahoo.com','icloud.com','aol.com','proton.me','protonmail.com']);
+export function publicCompanyURL(value:string):string{
+ const normalized=normalizeURL(value);if(!normalized)throw new Error('Only public HTTPS company URLs without credentials, IP literals or custom ports are supported.');const u=new URL(normalized);try{if(new URL(value).hostname.toLowerCase()==='www.'+u.hostname)u.hostname='www.'+u.hostname;}catch{}const h=u.hostname;
+ if(!/^[a-z0-9.-]+$/.test(h)||h.split('.').some(x=>!x)||['localhost','local','internal','test','invalid','onion','lan','home','arpa'].some(s=>h===s||h.endsWith('.'+s))||BLOCKED.has(h)||[...BLOCKED].some(d=>h.endsWith('.'+d)))throw new Error('This hostname is not an approved public company research target.');
+ if([...u.searchParams.keys()].some(k=>/(?:token|password|secret|signature|credential|session|api[-_]?key|^key$|^auth$|^authorization$)/i.test(k)))throw new Error('Credential-bearing URLs are outside public company research.');
+ if(/\.(?:pdf|docx?|xlsx?|csv|zip|jpe?g|png|gif|svg|webp|ico|css|js|woff2?|ttf|mp[34]|avi|mov)$/i.test(u.pathname))throw new Error('Binary/static files are outside public company page research.');
+ if(/^\/(?:login|signin|sign-in|admin|account|auth)(?:\/|$)/i.test(u.pathname))throw new Error('Authenticated/private paths are outside public company research.');
+ return u.href;
+}
+export function robotsAllows(text:string,url:string):boolean{
+ const groups:{agents:string[];rules:{allow:boolean;path:string}[]}[]=[];let group={agents:[] as string[],rules:[] as {allow:boolean;path:string}[]};
+ for(const raw of text.split(/\r?\n/)){const m=raw.replace(/#.*/,'').trim().match(/^([^:]+):\s*(.*)$/);if(!m)continue;const key=m[1].toLowerCase(),value=m[2].trim();if(key==='user-agent'){if(group.rules.length){groups.push(group);group={agents:[],rules:[]};}group.agents.push(value.toLowerCase());}else if((key==='allow'||key==='disallow')&&value)group.rules.push({allow:key==='allow',path:value});}
+ if(group.agents.length)groups.push(group);const explicit=groups.filter(g=>g.agents.some(a=>a!=='*'&&'latimus'.includes(a)));const selected=explicit.length?explicit:groups.filter(g=>g.agents.includes('*'));const path=new URL(url).pathname;
+ const rules=selected.flatMap(g=>g.rules).filter(r=>{const end=r.path.endsWith('$'),body=end?r.path.slice(0,-1):r.path;const pattern=body.split('*').map(p=>p.replace(/[.+?^${}()|[\]\\]/g,'\\$&')).join('.*');try{return new RegExp('^'+pattern+(end?'$':'')).test(path);}catch{return true;}}).sort((a,b)=>b.path.length-a.path.length||Number(b.allow)-Number(a.allow));return rules[0]?.allow??true;
+}
+export async function cancellableDelay(ms:number,signal:AbortSignal):Promise<void>{if(signal.aborted)throw new DOMException('Research cancelled','AbortError');await new Promise<void>((resolve,reject)=>{const timer=setTimeout(()=>{signal.removeEventListener('abort',abort);resolve();},ms);const abort=()=>{clearTimeout(timer);reject(new DOMException('Research cancelled','AbortError'));};signal.addEventListener('abort',abort,{once:true});});}
+export async function readBounded(response:Response,limit=1024*1024):Promise<string>{if(Number(response.headers.get('content-length'))>limit){await response.body?.cancel();throw new Error('Public response exceeds the company research size limit.');}if(!response.body)throw new Error('Empty public response.');const reader=response.body.getReader(),parts:Uint8Array[]=[];let size=0;try{while(true){const v=await reader.read();if(v.done)break;size+=v.value.length;if(size>limit){await reader.cancel();throw new Error('Public response exceeds the company research size limit.');}parts.push(v.value);}}finally{reader.releaseLock();}const bytes=new Uint8Array(size);let pos=0;for(const p of parts){bytes.set(p,pos);pos+=p.length;}return new TextDecoder().decode(bytes);}
+async function fetchPublic(url:string,domain:string,settings:ProspectSettings,deps:ResearchDependencies,signal:AbortSignal,robots=false,robotsPolicy?:{text:string;origin:string}):Promise<{html:string;url:string;status:number}>{
+ let target=publicCompanyURL(url);let triedCompanion=false,policy=robotsPolicy;for(let redirects=0;redirects<4;redirects++){
+  if(!robots&&policy&&policy.origin!==new URL(target).origin){const companionOrigin=new URL(target).origin;const checked=await fetchPublic(companionOrigin+'/robots.txt',domain,settings,deps,signal,true);policy={text:checked.html,origin:companionOrigin};const delay=policy.text.match(/^crawl-delay:\s*([0-9.]+)/im);if(delay){const ms=Number(delay[1])*1000;if(ms>10000)throw new Error('Companion site crawl delay exceeds this job budget.');await cancellableDelay(Math.max(ms,settings.requestDelayMs),signal);}}
+  if(!robots&&policy&&!robotsAllows(policy.text,target))throw new Error('Redirect target is disallowed by the company robots policy.');
+  if(normalizeDomain(target)!==domain)throw new Error('Cross-company redirect requires a separate owner-approved company identity.');if(!await deps.allowOrigin(target))throw new Error('permission_required: approve '+domain+' in Advanced Mode, then resume selected rows.');
+  for(let attempt=0;attempt<2;attempt++){
+   const timeout=new AbortController(),timer=setTimeout(()=>timeout.abort(),settings.timeoutMs);try{
+    const r=await deps.fetcher(target,{credentials:'omit',redirect:'manual',referrerPolicy:'no-referrer',...({targetAddressSpace:'public'} as RequestInit),headers:{Accept:robots?'text/plain':'text/html,application/xhtml+xml'},signal:AbortSignal.any([signal,timeout.signal])});
+    if(r.type==='opaqueredirect'){await r.body?.cancel();if(triedCompanion)throw new Error('Company redirects are opaque to this browser; manual website review is required.');triedCompanion=true;const companion=new URL(target);companion.hostname=companion.hostname.startsWith('www.')?companion.hostname.slice(4):'www.'+companion.hostname;target=publicCompanyURL(companion.href);break;}
+    if(r.status>=300&&r.status<400){const location=r.headers.get('location');await r.body?.cancel();if(!location)throw new Error('Redirect target is unavailable.');target=publicCompanyURL(new URL(location,target).href);break;}
+    if(r.status===404&&robots){await r.body?.cancel();return {html:'',url:target,status:404};}
+    if((r.status===429||r.status>=500)&&attempt===0){const retry=r.headers.get('retry-after');await r.body?.cancel();const wait=retry&&/^\d+$/.test(retry)?Number(retry)*1000:1000;if(wait>10000)throw new Error('Source rate limit exceeds this job budget; retry later.');await cancellableDelay(Math.max(wait,settings.requestDelayMs),signal);continue;}
+    if(!r.ok){await r.body?.cancel();throw new Error(`Public page returned HTTP ${r.status}. Access restrictions are not bypassed.`);}
+    const contentType=r.headers.get('content-type')||'';if(!robots&&!/text\/html|application\/xhtml\+xml/i.test(contentType)){await r.body?.cancel();throw new Error('Company research accepts HTML pages only, not binaries or data downloads.');}
+    const html=await readBounded(r);if(!robots&&/captcha|cf-chl-|challenge-platform/i.test(html.slice(0,30000)))throw new Error('Site protection requires manual research; no CAPTCHA or anti-bot bypass is attempted.');return {html,url:target,status:r.status};
+   }finally{clearTimeout(timer);timeout.abort();}
+  }
+ }
+ throw new Error('Too many or unsupported public-page redirects.');
+}
+function emptyResearch(n:NormalizedProspect):CompanyResearch{return {domain:n.domain,website:n.website,companyName:n.company,companyConfidence:0,resolutionMethod:n.website?'input_website':'unresolved',emails:[],phones:[],profiles:[],pages:[],errors:[],checkedAt:new Date().toISOString()};}
+export async function researchCompany(n:NormalizedProspect,settings:ProspectSettings,deps:ResearchDependencies,signal:AbortSignal):Promise<CompanyResearch>{
+ const research=emptyResearch(n);let target=n.website;let searched=false;let searchScore=0;
+ if(!target&&n.email){const domain=normalizeEmail(n.email).split('@')[1];if(domain&&!FREEMAIL.has(domain)){target='https://'+domain;research.resolutionMethod='input_email_domain';}}
+ if(!target&&n.company&&deps.search){
+  const hits=await deps.search([n.company,n.address||n.normalizedPhone||[n.city,n.state].filter(Boolean).join(' '),'official website'].filter(Boolean).join(' '),signal);searched=true;
+  const ranked=new Map<string,{url:string;score:number}>();for(const h of hits.slice(0,10)){let url:string;try{url=publicCompanyURL(h.url);}catch{continue;}const domain=normalizeDomain(url);const corpus=normalizeCompany(h.title+' '+h.description);let score=corpus.includes(n.normalizedCompany)&&n.normalizedCompany.length>=3?40:0;if(n.address&&corpus.includes(normalizeCompany(n.address)))score+=30;if(n.normalizedPhone&&normalizePhone(h.description).includes(n.normalizedPhone))score+=25;if(n.city&&corpus.includes(normalizeCompany(n.city)))score+=10;const parts=n.normalizedCompany.split(' ').filter(p=>p.length>2);if(parts.some(p=>domain.replace(/[^a-z0-9]/g,'').includes(p)))score+=20;const old=ranked.get(domain);if(!old||old.score<score)ranked.set(domain,{url:'https://'+domain,score});}
+  const candidates=[...ranked.values()].sort((a,b)=>b.score-a.score);if(!candidates.length||candidates[0].score<40){research.errors.push('company_not_resolved: public search did not establish a plausible company website.');return research;}
+  if(candidates[1]&&candidates[0].score-candidates[1].score<15){research.errors.push('Ambiguous company domains require review: '+candidates.slice(0,3).map(c=>c.url).join(', '));return research;}
+  target=candidates[0].url;searchScore=candidates[0].score;research.resolutionMethod=n.address?'search_name_address':n.normalizedPhone?'search_name_phone':'search_company_name';
+ }
+ if(!target){research.errors.push('provider_not_configured: no supplied business website or configured search provider can resolve this imported row.');return research;}
+ try{target=publicCompanyURL(target);}catch(e){research.errors.push(e instanceof Error?e.message:'Invalid public company URL.');return research;}
+ const domain=normalizeDomain(target);research.domain=domain;research.website=target;
+ let robots='',robotsOrigin='https://'+domain;try{const policy=await fetchPublic(new URL('/robots.txt',target).href,domain,settings,deps,signal,true);robots=policy.html;robotsOrigin=new URL(policy.url).origin;}catch(e){if(signal.aborted)throw e;research.errors.push(e instanceof Error?e.message:'robots.txt could not be checked.');return research;}
+ const crawlDelay=robots.match(/^crawl-delay:\s*([0-9.]+)/im);if(crawlDelay&&Number(crawlDelay[1])*1000>10000){research.errors.push('Site crawl delay exceeds this job budget; manual research is required.');return research;}const effectiveDelay=Math.max(settings.requestDelayMs,crawlDelay?Number(crawlDelay[1])*1000:0);
+ const origin='https://'+domain;const paths=['/','/contact','/contact-us','/about','/about-us','/team','/our-team','/company','/people','/leadership','/management','/staff','/owners','/owner'];const queue=[target,...paths.map(p=>origin+p)];const seen=new Set<string>();let lastFetch=Date.now();
+ while(queue.length&&research.pages.length<settings.maxPages&&seen.size<settings.maxPages+4){
+  if(signal.aborted)throw new DOMException('Research cancelled','AbortError');const url=queue.shift()!;if(seen.has(url)||!robotsAllows(robots,url))continue;seen.add(url);await cancellableDelay(Math.max(0,effectiveDelay-(Date.now()-lastFetch)),signal);
+  try{const fetched=await fetchPublic(url,domain,settings,deps,signal,false,{text:robots,origin:robotsOrigin});lastFetch=Date.now();const page=parsePublicCompanyPage(fetched.html,fetched.url);page.evidence.contentHash=await sha256(fetched.html);const association=scoreCompanyAssociation({...n,domain},page);const confidence=searched?Math.min(association.confidence,35+searchScore):association.confidence;research.companyConfidence=Math.max(research.companyConfidence,confidence);
+   research.pages.push(page.evidence);research.emails.push(...page.emails);research.phones.push(...page.phones);research.profiles=[...new Set([...research.profiles,...page.profiles])].slice(0,50);for(const link of page.links)if(normalizeDomain(link)===domain&&!seen.has(link))queue.unshift(link);
+  }catch(e){if(signal.aborted)throw e;research.errors.push(e instanceof Error?e.message:'Public page unavailable.');if(research.errors.length>=5)break;}
+ }
+ research.emails=[...new Map(research.emails.map(e=>[e.email+'|'+e.sourceUrl,e])).values()].slice(0,300);research.phones=[...new Map(research.phones.map(p=>[p.phone+'|'+p.sourceUrl,p])).values()].slice(0,100);if(research.companyConfidence<80){research.emails.forEach(e=>e.official=false);research.errors.push('Company identity is not strongly established; manual review required.');}research.checkedAt=new Date().toISOString();return research;
+}

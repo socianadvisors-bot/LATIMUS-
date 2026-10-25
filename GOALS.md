@@ -17,3 +17,7 @@ The core loops are:
 - Do not create 360 persistent agents.
 - Do not claim always-on monitoring when the local browser cannot perform it.
 - Do not fabricate sources, freshness, POCs, sends, credentials or professional authority.
+
+## Native expansion outcomes
+
+Add the CSV-first Prospecting Workbench (import/mapping/normalization/company-first research/evidence/contact confidence/review/explicit CRM/export), and reconcile all55 master-plan sources in the existing Intelligence Fabric. Reuse the company/contact/evidence spine with distinct intake origins. Keep MV3 Advanced Mode and self-contained Portable Core; translate the standalone prospect spec into these runtimes, with no Electron or required backend. Keep every original CSV column and all three scoring systems separate.

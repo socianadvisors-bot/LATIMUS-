@@ -16,3 +16,7 @@ Keep domain logic independent of extension APIs. Implement typed browser adapter
 # Completion rule
 
 Do not report completion from prose alone. Record implementation paths, tests/evaluations, observed evidence, limitations, and remaining gaps in the repository harness/state files.
+
+## In-place re-administration integration
+
+Build the trusted TS background broker plus bundled CSV worker. Portable Core uses an exact embedded Blob worker; Advanced uses same-origin worker files. Optional HTTPS declaration supports unknown imported company domains, but request exact root/www origins from a user action. Never require Electron or a hosted proxy.

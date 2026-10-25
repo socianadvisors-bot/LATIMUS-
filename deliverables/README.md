@@ -1,10 +1,14 @@
-# Ready-to-use LATIMUS files
+# Ready-to-use LATIMUS0.4 files
 
-Download the repository ZIP from GitHub using Code → Download ZIP, then extract it.
+Download the repository ZIP from the latimus-v0.1 branch on GitHub using Code → Download ZIP, extract it and open this deliverables folder.
 
-- `LATIMUS.html`: portable app. Open in desktop Chrome; create a passphrase. Export your encrypted workspace before closing.
-- `LATIMUS-extension.zip`: extract, then use Chrome Extensions → Developer mode → Load unpacked and select the extracted folder.
-- `LATIMUS-build.zip`: original packaged source, application and extension build.
-- `SHA256SUMS.txt`: artifact integrity hashes.
+- LATIMUS.html: Portable Core. Open in current desktop Chrome, create a passphrase, import CSV files, review and export. Export your encrypted workspace before closing.
+- LATIMUS-extension.zip: Advanced Mode. Extract, then use Chrome Extensions → Developer mode → Load unpacked and select the folder containing manifest.json. The toolbar opens the full-tab app.
+- LATIMUS-build.zip: packaged source, app and extension with build instructions/evidence.
+- SHA256SUMS.txt: artifact integrity hashes.
 
-Version 0.3 has five public-source adapters. Four passed native official API tests: USAspending, Austin, TDLR and FMCSA. Census needs a free real API key. Browser-live and full trigger acceptance remain unfinished. See the repository README and docs/ACCEPTANCE.md for actual tested features and remaining scope. Direct file and extension loading remain unverified on desktop because the cloud browser blocks them by managed policy. All five adapters are fixture-tested; four official API checks passed and Census data is key-pending. Connected AI and outbound sending are unavailable. The original21-trigger scope has19 active rows and2 property-specific rows deferred by the owner for now. See docs/SOURCE_RETRIEVAL.md and docs/TRIGGER_SOURCE_ACCEPTANCE.md.
+Prospecting is CSV-first. Every original column is retained; public company research enriches only imported rows. Fresh website/provider research requires Advanced Mode and explicit site permissions. Optional Brave key files are read/encrypted only by the background adapter; no key is bundled. Portable Core performs local/cached workflows and reports extension_required for fresh research.
+
+All55 source-plan entries are represented. Property-only INT-015–INT-022 remain disabled. Only TDLR, USAspending and FMCSA map to partial native plan adapters; Austin and Census are supplemental. Other active source rows accept authorized manual CSV receipts rather than claiming a live portal connection. Source records never silently populate Prospecting. Prior four native official API successes are preserved; Census requires a real free key.
+
+Build/typecheck,161core tests and16browser workflows passed;2managed-policy skips are explicitly documented. The actual10000-row built-app local persistence/reload/export benchmark passed. Cloud Chromium blocks directfile/installedextension acceptance, and real Brave/site acceptance remains pending on an unmanaged desktop. No outgoing sender or hosted backend is required. See docs/READMINISTRATION_ACCEPTANCE.md, docs/PROSPECTING.md and docs/55_SOURCE_COVERAGE.md.
