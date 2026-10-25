@@ -1,0 +1,3 @@
+import { it,expect } from 'vitest';
+import {CAPABILITIES,ROLE_COVERAGE,SERVICE_COVERAGE} from '../src/domain/capabilities';
+it('preserves all original module, role, position and service coverage without overstating implementation',()=>{expect(CAPABILITIES).toHaveLength(15);expect(new Set(CAPABILITIES.map(c=>c.id)).size).toBe(15);expect(ROLE_COVERAGE).toHaveLength(152);expect(ROLE_COVERAGE.reduce((sum,r)=>sum+r.referencePositions,0)).toBe(360);expect(SERVICE_COVERAGE).toHaveLength(67);for(const row of [...ROLE_COVERAGE,...SERVICE_COVERAGE]){expect(CAPABILITIES.some(c=>c.id===row.module)).toBe(true);expect(row.status).toBe('not implemented')}expect(CAPABILITIES.every(c=>c.status!=='planned'||c.available.length===0)).toBe(true)});
